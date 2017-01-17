@@ -18,12 +18,18 @@ github.com/unrolled/render
 logger
 github.com/uber-go/zap
 
+# Setup
+
+```
+$ make setup
+```
+
 # Test Run
 
 Execute this command in your terminal.
 
 ```
-$ go run main.go
+$ make run
 ```
 
 Open this url in your browser.

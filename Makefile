@@ -11,4 +11,4 @@ clean:
 	rm -rf cert.pem key.pem vendor localhost.*
 
 run:
-	go run main.go -ssl-cert=localhost.crt -ssl-key=localhost.pem -http-port=443
+	go run main.go -ssl-cert=localhost.crt -ssl-key=localhost.pem -http-port=8080
