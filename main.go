@@ -10,7 +10,7 @@ import (
 	"flag"
 	"fmt"
 
-	"simplego/middleware"
+	"github.com/shinofara/simple-go-web-app/middleware"
 )
 
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
