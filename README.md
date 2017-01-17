@@ -28,3 +28,11 @@ $ go run main.go
 
 Open this url in your browser.
 http://localhost:8080/
+
+# HTTP2
+
+```
+$ go run /usr/local/go/src/crypto/tls/generate_cert.go --host localhost
+2017/01/17 18:08:33 written cert.pem
+2017/01/17 18:08:33 written key.pem
+```

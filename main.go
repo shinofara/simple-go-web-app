@@ -7,6 +7,8 @@ import (
 	
 	"net/http"
 	"log"
+	"flag"
+	"fmt"
 
 	"simplego/middleware"
 )
@@ -16,6 +18,20 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	re := httpcontext.Get(r, "render").(*middleware.Render)
 
 	re.HTML("sample", map[string]string{"name": name})
+}
+
+var (
+	CertFilePath string
+	KeyFilePath string
+	HTTPPort string
+)
+
+func init() {
+	flag.StringVar(&CertFilePath, "ssl-cert", "", "path to cert file")
+	flag.StringVar(&KeyFilePath, "ssl-key", "", "path to key file")
+	flag.StringVar(&HTTPPort, "http-port", "8080", "numbuer of port")	
+
+	flag.Parse()
 }
 
 func main() {
@@ -32,5 +48,9 @@ func main() {
 	router.GET("/", Index)
   n.UseHandler(router)
 
-	log.Fatal(http.ListenAndServe(":8080", n))
+	log.Fatal(http.ListenAndServeTLS(
+		fmt.Sprintf(":%s", HTTPPort),
+		CertFilePath,
+		KeyFilePath,
+		n))
 }
