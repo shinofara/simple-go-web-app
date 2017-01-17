@@ -7,12 +7,24 @@ import (
 	"github.com/nbio/httpcontext"	
 )
 
-func LoggerMiddleware(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+type loggerMiddlewre struct {
+	logger zap.Logger
+}
+
+func NewLoggerMiddleware() loggerMiddlewre {
 	logger := zap.New(
     zap.NewJSONEncoder(JSTTimeFormatter("timestamp")), // drop timestamps in tests
-	)	
-	httpcontext.Set(r, "logger", logger)
-	logger.Info("Set logger to context.")
+		zap.DebugLevel,
+	)
+	
+	return loggerMiddlewre{
+		logger: logger,
+	}
+}
+
+func (ml *loggerMiddlewre) LoggerMiddleware(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+	httpcontext.Set(r, "logger", ml.logger)
+	ml.logger.Info("Set logger to context.")
   next(rw, r)	
 }
 

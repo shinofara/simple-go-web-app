@@ -38,10 +38,14 @@ func main() {
 	n := negroni.New()
 
 	// middlewareを登録
-	n.Use(negroni.HandlerFunc(middleware.LoggerMiddleware))
+
+	//Loggerは初期化してから追加
+	l := middleware.NewLoggerMiddleware()
+	n.Use(negroni.HandlerFunc(l.LoggerMiddleware))
+
+	//SampleとRenderは初期化無しで追加
 	n.Use(negroni.HandlerFunc(middleware.SampleMiddleware))
 	n.Use(negroni.HandlerFunc(middleware.RenderMiddleware))	
-
 
   // http handlerを登録
 	router := httprouter.New()
