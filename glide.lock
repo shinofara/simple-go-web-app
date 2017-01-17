@@ -1,0 +1,16 @@
+hash: 7eca3d2c9e92ff24d11a450e41152b9c4eb269c889e6f618df041789aa8c2917
+updated: 2017-01-17T15:04:48.535185611+09:00
+imports:
+- name: github.com/julienschmidt/httprouter
+  version: 8c199fb6259ffc1af525cc3ad52ee60ba8359669
+- name: github.com/nbio/httpcontext
+  version: d2f7bb023e6ebb562d7d5e07a5f3a6ce935f4666
+- name: github.com/uber-go/atomic
+  version: 3b8db5e93c4c02efbc313e17b2e796b0914a01fb
+- name: github.com/uber-go/zap
+  version: a5783ee4b216a927da8f839c45cfbf9d694e1467
+- name: github.com/unrolled/render
+  version: 50716a0a853771bb36bfce61a45cdefdb98c2e6e
+- name: github.com/urfave/negroni
+  version: fde5e16d32adc7ad637e9cd9ad21d4ebc6192535
+testImports: []
