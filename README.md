@@ -42,3 +42,7 @@ $ go run /usr/local/go/src/crypto/tls/generate_cert.go --host localhost
 2017/01/17 18:08:33 written cert.pem
 2017/01/17 18:08:33 written key.pem
 ```
+
+リポジトリCRUDを利用してentiryを返却
+model(service）、トランザクション処理なども含めて一つの処理の流れを担当
+handler(controller)、routeとしての受けて、各modelからの処理の結果をHTMLや、JSONなどで返却を担当する
