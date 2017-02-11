@@ -2,14 +2,15 @@ package middleware
 
 import (
 	"net/http"
-	"github.com/nbio/httpcontext"
 	"github.com/unrolled/render"
+	"context"
 )
 
 func RenderMiddleware(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	re := NewRender(rw, r)
-	httpcontext.Set(r, "render", re)
-
+	ctx := r.Context()
+	ctx = context.WithValue(ctx, "render", re)	
+	r = r.WithContext(ctx)
   next(rw, r)	
 }
 

@@ -6,14 +6,13 @@ import (
 	"github.com/shinofara/simple-go-web-app/service"
 
 	"net/http"
-	"github.com/nbio/httpcontext"
 	"github.com/shinofara/simple-go-web-app/middleware"
 )
 
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	re := httpcontext.Get(r, "render").(*middleware.Render)
-
-	name := httpcontext.GetString(r, "name")
+	ctx := r.Context()	
+	re := ctx.Value("render").(*middleware.Render)
+	name := ctx.Value("name").(string)		
 
 	u, err := service.CreateNewUser(r, name)
   if err != nil {

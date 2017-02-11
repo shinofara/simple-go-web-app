@@ -4,11 +4,12 @@ import (
 	"net/http"	
 	"github.com/shinofara/simple-go-web-app/entity"
 	"github.com/shinofara/simple-go-web-app/repository"
-	"github.com/shinofara/simple-go-web-app/context"		
+	"github.com/shinofara/simple-go-web-app/context"
 )
 
 func CreateNewUser(r *http.Request, name string) (*entity.User, error) {
-	dbmap := context.MustGetDB(r)
+	ctx := r.Context()
+	dbmap := context.MustGetDB(ctx)
 
 	//ここでentityと関連付けを行う
 	dbmap.AddTableWithName(entity.User{}, "users").SetKeys(true, "ID")

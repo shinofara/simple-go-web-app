@@ -29,6 +29,9 @@ func main() {
 
 	// middlewareを登録
 
+	//contextは全体に関わるので一番最初に設定
+	n.Use(negroni.HandlerFunc(middleware.ContextMiddleware))
+	
 	//Loggerは初期化してから追加
 	l := middleware.NewLoggerMiddleware()
 	n.Use(negroni.HandlerFunc(l.LoggerMiddleware))

@@ -4,7 +4,7 @@ import (
 	"time"
 	"net/http"
 	"github.com/uber-go/zap"
-	"github.com/nbio/httpcontext"	
+	"context"
 )
 
 type loggerMiddlewre struct {
@@ -23,7 +23,10 @@ func NewLoggerMiddleware() loggerMiddlewre {
 }
 
 func (ml *loggerMiddlewre) LoggerMiddleware(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	httpcontext.Set(r, "logger", ml.logger)
+	ctx := r.Context()
+	ctx = context.WithValue(ctx, "logger", ml.logger)
+	r = r.WithContext(ctx)
+	
 	ml.logger.Info("Set logger to context.")
   next(rw, r)	
 }
