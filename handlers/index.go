@@ -15,7 +15,7 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 	name := httpcontext.GetString(r, "name")
 
-	u, err := service.CreateNewUser(name)
+	u, err := service.CreateNewUser(r, name)
   if err != nil {
 		re.HTML("sample", map[string]string{"name": err.Error()})		
 	}

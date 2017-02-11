@@ -34,6 +34,7 @@ func main() {
 	n.Use(negroni.HandlerFunc(l.LoggerMiddleware))
 
 	//SampleとRenderは初期化無しで追加
+	n.Use(negroni.HandlerFunc(middleware.DBMiddleware))	
 	n.Use(negroni.HandlerFunc(middleware.SampleMiddleware))
 	n.Use(negroni.HandlerFunc(middleware.RenderMiddleware))	
 
