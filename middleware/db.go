@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"net/http"
-	"github.com/uber-go/zap"
 	"github.com/shinofara/simple-go-web-app/context"	
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
@@ -12,7 +11,7 @@ import (
 func DBMiddleware(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	ctx := r.Context()
 
-	logger := ctx.Value("logger").(zap.Logger)
+	logger := context.MustGetLogger(ctx)
 
 	db, _ := sql.Open("mysql", "root:test@/test")
 	dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{"InnoDB", "UTF8"}}
