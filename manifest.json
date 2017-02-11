@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "github.com/julienschmidt/httprouter": {
+            "branch": "master"
+        },
+        "github.com/urfave/negroni": {
+            "branch": "master"
+        }
+    }
+}

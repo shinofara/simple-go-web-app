@@ -1,6 +1,7 @@
 setup: clean build-ssl
 	go run /usr/local/go/src/crypto/tls/generate_cert.go --host localhost
-	glide install
+	go get -u github.com/golang/dep/...
+	dep ensure
 
 build-ssl:
 	$(eval TMPFILE := $(shell mktemp))
