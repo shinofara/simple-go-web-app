@@ -9,9 +9,6 @@ github.com/julienschmidt/httprouter
 middleware
 github.com/urfave/negroni
 
-context
-github.com/nbio/httpcontext
-
 render
 github.com/unrolled/render
 
