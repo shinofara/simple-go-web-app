@@ -11,4 +11,5 @@ clean:
 	rm -rf cert.pem key.pem vendor localhost.*
 
 run:
+	docker-compose up -d mysql
 	go run main.go -ssl-cert=localhost.crt -ssl-key=localhost.pem -http-port=8080

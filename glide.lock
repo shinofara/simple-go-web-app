@@ -1,6 +1,8 @@
-hash: 7eca3d2c9e92ff24d11a450e41152b9c4eb269c889e6f618df041789aa8c2917
-updated: 2017-01-17T15:04:48.535185611+09:00
+hash: a19cb83f8a74f50f99033b2acde1b776abace7935d2b3a262954e70f2ed5b204
+updated: 2017-02-11T21:16:22.574491691+09:00
 imports:
+- name: github.com/go-sql-driver/mysql
+  version: a0583e0143b1624142adab07e0e97fe106d99561
 - name: github.com/julienschmidt/httprouter
   version: 8c199fb6259ffc1af525cc3ad52ee60ba8359669
 - name: github.com/nbio/httpcontext
@@ -13,4 +15,6 @@ imports:
   version: 50716a0a853771bb36bfce61a45cdefdb98c2e6e
 - name: github.com/urfave/negroni
   version: fde5e16d32adc7ad637e9cd9ad21d4ebc6192535
+- name: gopkg.in/gorp.v1
+  version: 4deece61034873cb5b5416e81abe4cea7bd0da72
 testImports: []
