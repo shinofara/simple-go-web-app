@@ -1,0 +1,61 @@
+{
+    "memo": "d2730636a63341a200b756d63f826e47665993b529ecd96ef5cd6adc0d6c4e6b",
+    "projects": [
+        {
+            "name": "github.com/go-sql-driver/mysql",
+            "version": "v1.3",
+            "revision": "a0583e0143b1624142adab07e0e97fe106d99561",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/julienschmidt/httprouter",
+            "branch": "master",
+            "revision": "8a45e95fc75cb77048068a62daed98cc22fdac7c",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/uber-go/atomic",
+            "version": "v1.0.0",
+            "revision": "0c9e689d64f004564b79d9a663634756df322902",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/uber-go/zap",
+            "branch": "master",
+            "revision": "c064b5c44b285a7e2fd5c9b26e8c38228ce2bccb",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/unrolled/render",
+            "branch": "master",
+            "revision": "50716a0a853771bb36bfce61a45cdefdb98c2e6e",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/urfave/negroni",
+            "branch": "master",
+            "revision": "b0a6f4500e67c3e53f2d1563cca1563ab9777533",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "gopkg.in/gorp.v1",
+            "version": "v1.7.1",
+            "revision": "c87af80f3cc5036b55b83d77171e156791085e2e",
+            "packages": [
+                "."
+            ]
+        }
+    ]
+}
