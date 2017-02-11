@@ -51,3 +51,5 @@ model(service）、トランザクション処理なども含めて一つの処�
 handler(controller)、routeとしての受けて、各modelからの処理の結果をHTMLや、JSONなどで返却を担当する
 handlersはentiryを知らない
 servideはrepositoryを知らない
+entityを知っているのはrepository
+reposityで取得後フィルタなどは行わない、serviceなどrepositotyからの取得後おこなう
