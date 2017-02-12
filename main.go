@@ -11,24 +11,13 @@ import (
 	"log"
 	"net/http"
 )
-var (
-	CertFilePath string
-	KeyFilePath string
-	HTTPPort string
-	ConfigPath string
-)
-
-func init() {
-	flag.StringVar(&ConfigPath, "conf", "", "path to config yaml path")	
-	flag.StringVar(&CertFilePath, "ssl-cert", "", "path to cert file")
-	flag.StringVar(&KeyFilePath, "ssl-key", "", "path to key file")
-	flag.StringVar(&HTTPPort, "http-port", "8080", "numbuer of port")	
-
-	flag.Parse()
-}
 
 func main() {
-	cfg, err := config.Load(ConfigPath)
+	 var configPath string
+	flag.StringVar(&configPath, "conf", "", "path to config yaml path")	
+	flag.Parse()
+	
+	cfg, err := config.Load(configPath)
 	if err != nil {
 		panic(err)
 	}
