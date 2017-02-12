@@ -1,0 +1,3 @@
+cert_file_path: localhost.crt
+key_file_path: localhost.pem
+http_port: 8080
