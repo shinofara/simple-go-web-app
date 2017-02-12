@@ -13,4 +13,4 @@ clean:
 
 run:
 	docker-compose up -d mysql
-	go run main.go -ssl-cert=localhost.crt -ssl-key=localhost.pem -http-port=8080
+	go run main.go -conf ./config.yml

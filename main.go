@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/julienschmidt/httprouter"
+	"github.com/shinofara/simple-go-web-app/config"	
 	"github.com/shinofara/simple-go-web-app/handlers"
 	"github.com/shinofara/simple-go-web-app/middleware"
 	"github.com/urfave/negroni"
@@ -14,9 +15,11 @@ var (
 	CertFilePath string
 	KeyFilePath string
 	HTTPPort string
+	ConfigPath string
 )
 
 func init() {
+	flag.StringVar(&ConfigPath, "conf", "", "path to config yaml path")	
 	flag.StringVar(&CertFilePath, "ssl-cert", "", "path to cert file")
 	flag.StringVar(&KeyFilePath, "ssl-key", "", "path to key file")
 	flag.StringVar(&HTTPPort, "http-port", "8080", "numbuer of port")	
@@ -25,6 +28,11 @@ func init() {
 }
 
 func main() {
+	cfg, err := config.Load(ConfigPath)
+	if err != nil {
+		panic(err)
+	}
+	
 	n := negroni.New()
 
 	// middlewareを登録
@@ -47,8 +55,8 @@ func main() {
 	n.UseHandler(router)
 
 	log.Fatal(http.ListenAndServeTLS(
-		fmt.Sprintf(":%s", HTTPPort),
-		CertFilePath,
-		KeyFilePath,
+		fmt.Sprintf(":%s", cfg.HTTPPort),
+		cfg.CertFilePath,
+		cfg.KeyFilePath,
 		n))
 }
