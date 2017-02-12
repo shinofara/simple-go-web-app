@@ -8,6 +8,7 @@ import (
 	gorp	"gopkg.in/gorp.v1"
 )
 
+// DBMiddleware stores DB connector to context.
 func DBMiddleware(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	ctx := r.Context()
 

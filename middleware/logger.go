@@ -22,6 +22,7 @@ func NewLoggerMiddleware() loggerMiddlewre {
 	}
 }
 
+// loggerMiddlewre.LoggerMiddleware stores Logger to context.
 func (ml *loggerMiddlewre) LoggerMiddleware(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	ctx := context.SetLogger(r.Context(), ml.logger)
 	r = r.WithContext(ctx)
