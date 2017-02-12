@@ -16,5 +16,4 @@ func Index(rw http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		return
 	}
 	re.HTML("sample", map[string]string{"name": u.Name})
-	return
 }
