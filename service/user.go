@@ -1,28 +1,27 @@
 package service
 
 import (
-	"net/http"	
-	"github.com/shinofara/simple-go-web-app/entity"
-	"github.com/shinofara/simple-go-web-app/repository"
+	ctx "context"
 	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/repository"
+	"github.com/shinofara/simple-go-web-app/entity"
 )
 
-func CreateNewUser(r *http.Request, name string) (*entity.User, error) {
-	ctx := r.Context()
-	dbmap := context.MustGetDB(ctx)
+func CreateNewUser(ctx ctx.Context, name string) (*entity.User, error) {
+	db := context.MustGetDB(ctx)
 
 	//ここでentityと関連付けを行う
-	dbmap.AddTableWithName(entity.User{}, "users").SetKeys(true, "ID")
+	db.AddTableWithName(entity.User{}, "users").SetKeys(true, "ID")
 
-	err := dbmap.CreateTablesIfNotExists()
+	err := db.CreateTablesIfNotExists()
 	if err != nil {
 		return	nil, err
 	}
 
-	err = repository.CreateUser(dbmap, name)
+	err = repository.CreateUser(db, name)
 	if err != nil {
 		return nil, err		
 	}
 
-	return repository.GetUser(dbmap)
+	return repository.GetUser(db)
 }
