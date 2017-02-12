@@ -13,7 +13,7 @@ type loggerMiddlewre struct {
 
 func NewLoggerMiddleware() loggerMiddlewre {
 	logger := zap.New(
-    zap.NewJSONEncoder(JSTTimeFormatter("timestamp")), // drop timestamps in tests
+		zap.NewJSONEncoder(JSTTimeFormatter("timestamp")), // drop timestamps in tests
 		zap.DebugLevel,
 	)
 	
@@ -27,7 +27,7 @@ func (ml *loggerMiddlewre) LoggerMiddleware(rw http.ResponseWriter, r *http.Requ
 	r = r.WithContext(ctx)
 	
 	ml.logger.Info("Set logger to context.")
-  next(rw, r)	
+	next(rw, r)
 }
 
 func JSTTimeFormatter(key string) zap.TimeFormatter {

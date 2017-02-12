@@ -10,5 +10,5 @@ func SampleMiddleware(rw http.ResponseWriter, r *http.Request, next http.Handler
 	logger := context.MustGetLogger(ctx)
 
 	logger.Info("Set character string shinofara to context with the name `name`.")
-  next(rw, r)	
+	next(rw, r)
 }

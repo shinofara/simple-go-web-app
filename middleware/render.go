@@ -10,5 +10,5 @@ func RenderMiddleware(rw http.ResponseWriter, r *http.Request, next http.Handler
 	re := render.New(rw, r)
 	ctx := context.SetRender(r.Context(), re)
 	r = r.WithContext(ctx)
-  next(rw, r)	
+	next(rw, r)
 }
