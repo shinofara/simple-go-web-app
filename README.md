@@ -20,11 +20,19 @@ $ make run
 Open this url in your browser.
 http://localhost:8080/
 
+## Check HTTP2
+
+```
+$ go run /usr/local/go/src/crypto/tls/generate_cert.go --host localhost
+2017/01/17 18:08:33 written cert.pem
+2017/01/17 18:08:33 written key.pem
+```
 
 
 # Useing Pacages
 
 | 役割       | パッケージ                            |
+| ---------- | ------------------------------------ |
 | router     | github.com/julienschmidt/httprouter  |
 | middleware | github.com/urfave/negroni            |
 | render     |  github.com/unrolled/render          |
@@ -32,13 +40,7 @@ http://localhost:8080/
 | gorp       | https://github.com/go-gorp/gorp      |
 
 
-# HTTP2
 
-```
-$ go run /usr/local/go/src/crypto/tls/generate_cert.go --host localhost
-2017/01/17 18:08:33 written cert.pem
-2017/01/17 18:08:33 written key.pem
-```
 
 # sub-package設計
 
