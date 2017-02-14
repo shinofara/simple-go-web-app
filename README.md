@@ -43,6 +43,7 @@ $ go run /usr/local/go/src/crypto/tls/generate_cert.go --host localhost
 # sub-package設計
 
 | name    | 担当する世界                                                                         |
+| -------- | ------ |
 | handler | 発生したHTTPリクエストに対して、パス毎の処理を定義する場所                        |
 | service | 目的毎の処理を各場所、主に`service`がrepositotyなど連絡を行い一つの処理を達成する |
 | context | リクエスト発生から返却までの間、維持したい情報を保持                              |
