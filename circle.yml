@@ -1,0 +1,12 @@
+machine:
+  environment:
+    PATH: "/home/ubuntu/go/bin:$PATH"
+
+dependencies:
+  pre:
+    - go get -u github.com/golang/dep/...
+    - dep ensure
+
+test:
+  override:
+    - go test ./...
