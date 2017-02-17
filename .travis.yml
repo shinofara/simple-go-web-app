@@ -4,8 +4,8 @@ go:
   - 1.7.4
 env:
   global:
-    IMPORT_PATH="github.com/$TRAVIS_REPO_SLUG"
-    WORK_DIR="$GOPATH"
+    IMPORT_PATH="github.com/${TRAVIS_REPO_SLUG}"
+    WORK_DIR="~/gopath"
 install:
   - go get -u github.com/jstemmer/go-junit-report
   - go get -u github.com/golang/dep/...
