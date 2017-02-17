@@ -5,7 +5,7 @@ go:
 env:
   global:
     IMPORT_PATH="github.com/${TRAVIS_REPO_SLUG}"
-    WORK_DIR="${GOPOATH}"
+    WORK_DIR="${HOMGE}/gopath"
     CIRCLE_TEST_REPORTS="${HOME}/reports"
 install:
   - go get -u github.com/jstemmer/go-junit-report
