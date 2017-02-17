@@ -19,7 +19,7 @@ run:
 test-all: test vet lint
 
 test:
-	@go test -race -v $$(glide novendor)
+	@go test $$(glide novendor)
 
 vet:
 	@go vet $$(glide novendor)

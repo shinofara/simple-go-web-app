@@ -44,6 +44,10 @@ $ go run /usr/local/go/src/crypto/tls/generate_cert.go --host localhost
 
 # sub-package設計
 
+思考的にはDDDには寄せています
+http://qiita.com/haazime/items/6119097071149a362f7f
+違ったらPRください＞＜
+
 | name    | 担当する世界                                                                         | その他 |
 | -------- | ------ | -- |
 | handler | 発生したHTTPリクエストに対して、パス毎の処理を定義する場所                        | |
