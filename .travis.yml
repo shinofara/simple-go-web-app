@@ -6,14 +6,13 @@ env:
   global:
     IMPORT_PATH="github.com/${TRAVIS_REPO_SLUG}"
     WORK_DIR="${GOPOATH}"
+    CIRCLE_TEST_REPORTS="${HOME}/reports"
 install:
   - go get -u github.com/jstemmer/go-junit-report
   - go get -u github.com/golang/dep/...
   - go get -u github.com/Masterminds/glide
   - glide update
+  - mkdir -p $CIRCLE_TEST_REPORTS/golang 
 script:
-  - echo $HOME
-  - ls -la $IMPORT_PATH
-  - ls -la
   - make ci-test
   - make ci-vet
