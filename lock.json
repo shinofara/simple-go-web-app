@@ -1,10 +1,10 @@
 {
-    "memo": "745a79c4e4852dc217646164bee5cf132caae7189872aae731e249e3cb137936",
+    "memo": "efe337fdc197fbcfbe78b9f7542c84715aa0163106ee0092b097ed0638cbe12a",
     "projects": [
         {
             "name": "github.com/go-sql-driver/mysql",
-            "version": "v1.3",
-            "revision": "a0583e0143b1624142adab07e0e97fe106d99561",
+            "branch": "master",
+            "revision": "2e00b5cd70399450106cec6431c2e2ce3cae5034",
             "packages": [
                 "."
             ]
@@ -19,8 +19,8 @@
         },
         {
             "name": "github.com/uber-go/zap",
-            "version": "v1.0.0-rc.1",
-            "revision": "72313cde80537dd4dc9b7b80eda6d7ed796c4232",
+            "branch": "master",
+            "revision": "066278dd4c1dedb5aa4dbc4a79df2651401810fd",
             "packages": [
                 "."
             ]
@@ -43,16 +43,16 @@
         },
         {
             "name": "go.uber.org/atomic",
-            "branch": "master",
-            "revision": "3b8db5e93c4c02efbc313e17b2e796b0914a01fb",
+            "version": "v1.0.0",
+            "revision": "870163a1121a1f54715c3467899c302aadd1f9ac",
             "packages": [
                 "."
             ]
         },
         {
             "name": "go.uber.org/zap",
-            "branch": "ajs-buffers",
-            "revision": "124103cf437cf06524f0b7d1876041c5c4b841e1",
+            "version": "v1.0.0-rc.1",
+            "revision": "72313cde80537dd4dc9b7b80eda6d7ed796c4232",
             "packages": [
                 "internal/bufferpool",
                 "internal/multierror",

@@ -1,10 +1,25 @@
 {
     "dependencies": {
+        "github.com/go-sql-driver/mysql": {
+            "branch": "master"
+        },
         "github.com/julienschmidt/httprouter": {
+            "branch": "master"
+        },
+        "github.com/uber-go/zap": {
+            "branch": "master"
+        },
+        "github.com/unrolled/render": {
             "branch": "master"
         },
         "github.com/urfave/negroni": {
             "branch": "master"
+        },
+        "gopkg.in/gorp.v2": {
+            "branch": "master"
+        },
+        "gopkg.in/yaml.v2": {
+            "branch": "v2"
         }
     }
 }

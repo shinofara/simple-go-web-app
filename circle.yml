@@ -11,6 +11,7 @@ dependencies:
     - mkdir -p "/home/ubuntu/.go_workspace/src/$IMPORT_PATH"
     - rsync -azC --delete ./ "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/"
     - echo  "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/"
+    - ls -la "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/"
 
 test:
   pre:
