@@ -8,13 +8,14 @@ import (
 )
 
 func Index(rw http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	u, err := service.CreateNewUser(r.Context(), "test")
+	us := service.NewUser(r.Context())
+	user, err := us.Register("test")
 
 	re := render.New(rw, r)
 	if err != nil {
 		re.HTML("sample", map[string]string{"name": err.Error()})
 		return
 	}
-	re.HTML("sample", map[string]string{"name": u.Name})
+	re.HTML("sample", map[string]string{"name": user.Name})
 	return
 }

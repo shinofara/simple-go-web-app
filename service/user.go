@@ -7,8 +7,16 @@ import (
 	"github.com/shinofara/simple-go-web-app/entity"
 )
 
-func CreateNewUser(ctx ctx.Context, name string) (*entity.User, error) {
-	db := context.MustGetDB(ctx)
+type UserService struct {
+	ctx ctx.Context
+}
+
+func NewUser(ctx ctx.Context) *UserService {
+	return &UserService{ctx}
+}
+
+func (u *UserService) Register(name string) (*entity.User, error) {
+	db := context.MustGetDB(u.ctx)
 
 	//ここでentityと関連付けを行う
 	db.AddTableWithName(entity.User{}, "users").SetKeys(true, "ID")
