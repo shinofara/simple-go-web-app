@@ -14,3 +14,25 @@ clean:
 run:
 	docker-compose up -d mysql
 	go run main.go -conf ./config.yml
+
+## Local
+test-all: test vet lint
+
+test:
+	@go test -race -v $$(glide novendor)
+
+vet:
+	@go vet $$(glide novendor)
+
+lint:
+	@for pkg in $$(go list ./... | grep -v /vendor/) ; do \
+		golint $$pkg ; \
+	done
+
+## CI
+ci-test:
+	cd "/home/ubuntu/.go_workspace/src/$(IMPORT_PATH)/" && \
+	go test -race -v $$(glide novendor) | go-junit-report -set-exit-code=true > $(CIRCLE_TEST_REPORTS)/golang/junit.xml
+
+ci-vet:
+	cd "/home/ubuntu/.go_workspace/src/$(IMPORT_PATH)/" && go vet $$(glide novendor)
