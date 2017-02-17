@@ -4,6 +4,7 @@ machine:
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
     GOVERSION: 1.7.4
     GOROOT: "/home/ubuntu/go"
+    WORK_DIR: "/home/ubuntu/.go_workspace"
 
 dependencies:
   cache_directories:
@@ -23,9 +24,9 @@ dependencies:
     - go version
 
   override:
-    - mkdir -p "/home/ubuntu/.go_workspace/src/github.com/$CIRCLE_PROJECT_USERNAME"
-    - ln -sfn $HOME/$CIRCLE_PROJECT_REPONAME /home/ubuntu/.go_workspace/src/$IMPORT_PATH
-    - cd "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/" && glide update
+    - mkdir -p "$WORK_DIR/src/github.com/$CIRCLE_PROJECT_USERNAME"
+    - ln -sfn $HOME/$CIRCLE_PROJECT_REPONAME $WORK_DIR/src/$IMPORT_PATH
+    - cd "$WORK_DIR/src/$IMPORT_PATH/" && glide update
 
 test:
   override:
