@@ -2,7 +2,7 @@ machine:
   environment:
     PATH: "/home/ubuntu/go/bin:$PATH"
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
-    GOVERSION: 1.8
+    GOVERSION: 1.7.4
     GOROOT: "/home/ubuntu/go"
 
 dependencies:
