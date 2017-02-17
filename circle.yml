@@ -2,19 +2,30 @@ machine:
   environment:
     PATH: "/home/ubuntu/go/bin:$PATH"
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+    GOVERSION: 1.8.0
+    GOROOT: "/home/ubuntu/go"
 
 dependencies:
+  cache_directories:
+    - "/home/ubuntu/.go"
   pre:
-    - go get -u github.com/golang/dep/...
+    - cd /home/ubuntu;
+      if [[ ! -e /home/ubuntu/.go/$GOVERSION/bin/go ]]; then
+        curl https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz | tar -xz;
+        go get -u github.com/jstemmer/go-junit-report;
+        go get -u github.com/golang/dep/...;
+        mkdir -p ~/.go;
+        cp -rp ~/go ~/.go/$GOVERSION;
+      else
+        cp -rp ~/.go/$GOVERSION ~/go;
+      fi
+    - go version
 
   override:
     - mkdir -p "/home/ubuntu/.go_workspace/src/github.com/$CIRCLE_PROJECT_USERNAME"
     - ln -sfn $HOME/$CIRCLE_PROJECT_REPONAME /home/ubuntu/.go_workspace/src/$IMPORT_PATH
-    - echo  "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/"
-    - ls -la "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/"
+    - cd "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/" && dep ensure
 
 test:
-  pre:
-    - cd /home/ubuntu/.go_workspace/src/$IMPORT_PATH && dep ensure
   override:
     - go test ./...
