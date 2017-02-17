@@ -1,5 +1,5 @@
 {
-    "memo": "d2730636a63341a200b756d63f826e47665993b529ecd96ef5cd6adc0d6c4e6b",
+    "memo": "745a79c4e4852dc217646164bee5cf132caae7189872aae731e249e3cb137936",
     "projects": [
         {
             "name": "github.com/go-sql-driver/mysql",
@@ -18,17 +18,9 @@
             ]
         },
         {
-            "name": "github.com/uber-go/atomic",
-            "version": "v1.0.0",
-            "revision": "0c9e689d64f004564b79d9a663634756df322902",
-            "packages": [
-                "."
-            ]
-        },
-        {
             "name": "github.com/uber-go/zap",
-            "branch": "master",
-            "revision": "c064b5c44b285a7e2fd5c9b26e8c38228ce2bccb",
+            "version": "v1.0.0-rc.1",
+            "revision": "72313cde80537dd4dc9b7b80eda6d7ed796c4232",
             "packages": [
                 "."
             ]
@@ -44,15 +36,41 @@
         {
             "name": "github.com/urfave/negroni",
             "branch": "master",
-            "revision": "b0a6f4500e67c3e53f2d1563cca1563ab9777533",
+            "revision": "61dbefc515b4dede6eb2de7df1e54d49edce892d",
             "packages": [
                 "."
+            ]
+        },
+        {
+            "name": "go.uber.org/atomic",
+            "branch": "master",
+            "revision": "3b8db5e93c4c02efbc313e17b2e796b0914a01fb",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "go.uber.org/zap",
+            "branch": "ajs-buffers",
+            "revision": "124103cf437cf06524f0b7d1876041c5c4b841e1",
+            "packages": [
+                "internal/bufferpool",
+                "internal/multierror",
+                "zapcore"
             ]
         },
         {
             "name": "gopkg.in/gorp.v1",
             "version": "v1.7.1",
             "revision": "c87af80f3cc5036b55b83d77171e156791085e2e",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "gopkg.in/yaml.v2",
+            "branch": "v2",
+            "revision": "a3f3340b5840cee44f372bddb5880fcbc419b46a",
             "packages": [
                 "."
             ]
