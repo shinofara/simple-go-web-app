@@ -1,6 +1,5 @@
 machine:
   environment:
-    GIPATH: "/home/ubuntu/.go_workspace"
     PATH: "/home/ubuntu/go/bin:$PATH"
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
 
@@ -9,12 +8,12 @@ dependencies:
     - go get -u github.com/golang/dep/...
 
   override:
-    - mkdir -p "$GOPATH/src/$IMPORT_PATH"
-    - rsync -azC --delete ./ "$GOPATH/src/$IMPORT_PATH/"
-    - echo  "$GOPATH/src/$IMPORT_PATH/"
+    - mkdir -p "/home/ubuntu/.go_workspace/src/$IMPORT_PATH"
+    - rsync -azC --delete ./ "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/"
+    - echo  "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/"
 
 test:
   pre:
-    - cd $GOPATH/src/$IMPORT_PATH && dep ensure
+    - cd /home/ubuntu/.go_workspace/src/$IMPORT_PATH && dep ensure
   override:
     - go test ./...
