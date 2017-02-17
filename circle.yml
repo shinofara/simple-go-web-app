@@ -13,6 +13,6 @@ dependencies:
 
 test:
   pre:
-    - dep ensure
+    - cd $GOPATH/src/$IMPORT_PATH && dep ensure
   override:
     - go test ./...
