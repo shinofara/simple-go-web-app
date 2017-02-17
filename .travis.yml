@@ -12,5 +12,6 @@ install:
   - go get -u github.com/Masterminds/glide
   - glide update
 script:
+  - echo $HOME
   - make ci-test
   - make ci-vet
