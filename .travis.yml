@@ -13,5 +13,7 @@ install:
   - glide update
 script:
   - echo $HOME
+  - ls -la $IMPORT_PATH
+  - ls -la
   - make ci-test
   - make ci-vet
