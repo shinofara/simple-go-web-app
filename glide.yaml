@@ -1,14 +1,15 @@
 package: github.com/shinofara/simple-go-web-app
 import:
-- package: github.com/go-sql-driver/mysql
-  version: v1.3
 - package: github.com/julienschmidt/httprouter
   version: v1.1
-- package: github.com/uber-go/zap
-  version: v1.0.0-rc.1
-- package: github.com/unrolled/render
 - package: github.com/urfave/negroni
   version: v0.2.0
+- package: github.com/nbio/httpcontext
+- package: github.com/uber-go/zap
+- packate: github.com/uber-go/atomic  
+- package: github.com/unrolled/render
+- package: github.com/go-sql-driver/mysql
+  version: v1.3
 - package: gopkg.in/gorp.v1
   version: v2.0.0
 - package: gopkg.in/yaml.v2
