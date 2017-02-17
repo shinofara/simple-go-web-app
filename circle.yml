@@ -1,5 +1,6 @@
 machine:
   environment:
+    GIPATH: "/home/ubuntu/.go_workspace"
     PATH: "/home/ubuntu/go/bin:$PATH"
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
 
