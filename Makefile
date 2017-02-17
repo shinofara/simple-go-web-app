@@ -18,8 +18,8 @@ run:
 
 ## CI
 ci-test:
-	cd "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/" && \
+	cd "/home/ubuntu/.go_workspace/src/$(IMPORT_PATH)/" && \
 	go test -race -v $$(glide novendor) | go-junit-report -set-exit-code=true > $(CIRCLE_TEST_REPORTS)/golang/junit.xml
 
 ci-vet:
-	cd "/home/ubuntu/.go_workspace/src/$IMPORT_PATH/" && go vet $$(glide novendor)
+	cd "/home/ubuntu/.go_workspace/src/$(IMPORT_PATH)/" && go vet $$(glide novendor)
