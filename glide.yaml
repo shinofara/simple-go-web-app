@@ -6,7 +6,9 @@ import:
   version: v0.2.0
 - package: github.com/nbio/httpcontext
 - package: github.com/uber-go/zap
-- packate: github.com/uber-go/atomic  
+  version: a5783ee4b216a927da8f839c45cfbf9d694e1467
+- packate: github.com/uber-go/atomic
+  version: 3b8db5e93c4c02efbc313e17b2e796b0914a01fb
 - package: github.com/unrolled/render
 - package: github.com/go-sql-driver/mysql
   version: v1.3
