@@ -15,6 +15,19 @@ run:
 	docker-compose up -d mysql
 	go run main.go -conf ./config.yml
 
+## Local
+test-all: test vet lint
+
+test:
+	@go test -race -v $$(glide novendor)
+
+vet:
+	@go vet $$(glide novendor)
+
+lint:
+	@for pkg in $$(go list ./... | grep -v /vendor/) ; do \
+		golint $$pkg ; \
+	done
 
 ## CI
 ci-test:
