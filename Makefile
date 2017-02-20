@@ -13,6 +13,7 @@ clean:
 
 run:
 	docker-compose up -d mysql
+	cd cmd/example_app/ && \
 	go run main.go -conf ./config.yml
 
 ## Local
