@@ -1,7 +1,8 @@
 setup: clean build-ssl
 	go run /usr/local/go/src/crypto/tls/generate_cert.go --host localhost
-	go get -u github.com/golang/dep/...
-	dep ensure
+	glide install
+#	go get -u github.com/golang/dep/...
+#	dep ensure
 
 build-ssl:
 	$(eval TMPFILE := $(shell mktemp))
@@ -14,7 +15,7 @@ clean:
 run:
 	docker-compose up -d mysql
 	cd cmd/example_app/ && \
-	go run main.go -conf ./config.yml
+	go run main.go -conf ../../config.yml
 
 ## Local
 test-all: test vet lint
