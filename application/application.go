@@ -5,6 +5,7 @@ package application
 
 import (
 	"fmt"
+	"regexp"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -33,5 +34,7 @@ func (a *Application) Register(path string, handler httprouter.Handle, databases
 }
 
 func GenerateIndexKey(path string) string {
-	return fmt.Sprintf("%s_%s", "get", path)
+	re := regexp.MustCompile("(.*)/$")
+  path = re.ReplaceAllString(path, "$1")
+	return fmt.Sprintf("%s%s", "get", path)
 }
