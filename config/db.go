@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 )
 
-type DBConfigs []*DBConfig
+type DBConfigs map[string]*DBConfig
 type DBConfig struct {
 	Name string `yaml:"name"`
 	User string `yaml:"user"`

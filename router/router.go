@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/julienschmidt/httprouter"
-	"github.com/shinofara/simple-go-web-app/handlers"	
+	"github.com/shinofara/simple-go-web-app/handlers"
 )
 
 type Router struct {

@@ -9,7 +9,7 @@ func TestLoadDBConfig(t *testing.T) {
 	actual, _ := LoadDBConfig("testdata/test.yml")
 
 	expected := &DBConfigs{
-		&DBConfig{
+		"default": &DBConfig{
 			Name: "test",
 			Host: "localhost",
 			User: "test",

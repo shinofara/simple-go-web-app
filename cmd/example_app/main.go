@@ -4,8 +4,9 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/shinofara/simple-go-web-app/config"	
-	"github.com/shinofara/simple-go-web-app/router"	
+	"github.com/shinofara/simple-go-web-app/application"
+	"github.com/shinofara/simple-go-web-app/config"
+	"github.com/shinofara/simple-go-web-app/handlers"
 	"github.com/shinofara/simple-go-web-app/middleware"
 	"github.com/urfave/negroni"
 	"log"
@@ -23,10 +24,14 @@ func main() {
 		panic(err)
 	}
 
-	dbCfgs, err := config.LoadDBConfig("./database.yml")
+	dbCfgs, err := config.LoadDBConfig(cfg.DatabaseYmlPath)
 	if err != nil {
 		panic(err)
 	}
+
+	//アプリケーションの管理
+	app := application.New()
+	app.Register("/", handlers.Index, []string{"default"})
 	
 	n := negroni.New()
 
@@ -40,11 +45,9 @@ func main() {
 	n.Use(negroni.HandlerFunc(l.LoggerMiddleware))
 
 	//SampleとRenderは初期化無しで追加
-	n.Use(negroni.HandlerFunc(middleware.DBMiddleware(dbCfgs)))
+	n.Use(negroni.HandlerFunc(middleware.DBMiddleware(app.ApplicationConfigs, dbCfgs)))
 
-	// http handlerを登録
-	r := router.New()
-	n.UseHandler(r.Router)
+	n.UseHandler(app.Router)
 
 	log.Fatal(http.ListenAndServeTLS(
 		fmt.Sprintf(":%s", cfg.HTTPPort),

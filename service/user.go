@@ -16,7 +16,7 @@ func NewUser(ctx ctx.Context) *UserService {
 }
 
 func (u *UserService) Register(name string) (*entity.User, error) {
-	db := context.MustGetDB(u.ctx)
+	db := context.MustGetDB(u.ctx, "default")
 
 	//ここでentityと関連付けを行う
 	db.AddTableWithName(entity.User{}, "users").SetKeys(true, "ID")
