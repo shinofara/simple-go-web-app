@@ -20,8 +20,10 @@ type ApplicationConfig struct {
 }
 
 func New() *Application {
+	router := httprouter.New()
+
 	return &Application{
-		Router: httprouter.New(),
+		Router: router,
 		ApplicationConfigs: make(map[string]*ApplicationConfig),
 	}
 }

@@ -13,8 +13,8 @@ import (
 
 func TestDBMiddleware(t *testing.T) {
 	appCfg := map[string]*application.ApplicationConfig{
-		"get_/": &application.ApplicationConfig{
-			Key: "get_/",
+		"get": &application.ApplicationConfig{
+			Key: "get",
 			Databases: []string{"default", "read"},
 		},
 	}
@@ -83,4 +83,25 @@ func TestConvertDBConfigTable(t *testing.T) {
 		t.Errorf("Must be equal, \ne is %+v \na is %+v", expected, dbTables)
 	}
 	
+}
+
+func TestGetPathConfig(t *testing.T) {
+	appCfg := &application.ApplicationConfig{
+		Key: "get",
+		Databases: []string{"default", "read"},
+	}
+	
+	appCfgs := map[string]*application.ApplicationConfig{
+		"get": appCfg,
+	}
+
+	actual := getPathConfig(appCfgs, "/")
+	if !reflect.DeepEqual(appCfg, actual) {
+		t.Errorf("Must be equal, \ne is %+v \na is %+v", appCfg, actual)
+	}
+
+	actual = getPathConfig(appCfgs, "")
+	if !reflect.DeepEqual(appCfg, actual) {
+		t.Errorf("Must be equal, \ne is %+v \na is %+v", appCfg, actual)
+	}	
 }

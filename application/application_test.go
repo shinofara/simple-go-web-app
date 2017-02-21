@@ -13,7 +13,6 @@ func TestGenerateIndexKey(t *testing.T) {
 	}
 
 	actual = GenerateIndexKey("/hoge/hoge/")
-
 	if expected != actual {
 		t.Errorf("Must be equal, \ne is %+v \na is %+v", expected, actual)
 	}	

@@ -22,9 +22,12 @@ func DBMiddleware(appCfgs map[string]*application.ApplicationConfig, dbCfgs *con
 
 		path := r.URL.Path
 		//method := r.Method
+
 		appCfg := appCfgs[application.GenerateIndexKey(path)]
+		logger.Info(fmt.Sprintf("%+v", appCfg.Databases))
 
 		for _, dbCfgName := range appCfg.Databases {
+			logger.Info(fmt.Sprintf("%+v", dbCfgName))
 			db, _ := sql.Open("mysql", dataSourceNames[dbCfgName])
 			dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{"InnoDB", "UTF8"}}
 			defer dbmap.Db.Close()
@@ -33,8 +36,6 @@ func DBMiddleware(appCfgs map[string]*application.ApplicationConfig, dbCfgs *con
 		}
 
 		r = r.WithContext(ctx)
-
-		logger.Info("Set character string shinofara to context with the name `name`.")
 
 		next(rw, r)
 	}
@@ -48,4 +49,8 @@ func convertDBConfigTable(dbCfgs *config.DBConfigs) map[string]string {
 	}
 
 	return dataSourceNames
+}
+
+func getPathConfig(appCfgs map[string]*application.ApplicationConfig, path string) *application.ApplicationConfig {
+	return appCfgs[application.GenerateIndexKey(path)]
 }
