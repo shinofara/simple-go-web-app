@@ -1,17 +1,16 @@
 package service
 
 import (
-	ctx "context"
 	"github.com/shinofara/simple-go-web-app/context"
 	"github.com/shinofara/simple-go-web-app/repository"
 	"github.com/shinofara/simple-go-web-app/entity"
 )
 
 type UserService struct {
-	ctx ctx.Context
+	ctx context.Context
 }
 
-func NewUser(ctx ctx.Context) *UserService {
+func NewUser(ctx context.Context) *UserService {
 	return &UserService{ctx}
 }
 
