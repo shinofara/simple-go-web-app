@@ -6,7 +6,7 @@ import (
 
 	"github.com/shinofara/simple-go-web-app/application"
 	"github.com/shinofara/simple-go-web-app/config"
-	"github.com/shinofara/simple-go-web-app/handlers"
+	"github.com/shinofara/simple-go-web-app/handler"
 	"github.com/shinofara/simple-go-web-app/middleware"
 	"github.com/urfave/negroni"
 	"log"
@@ -31,8 +31,8 @@ func main() {
 
 	//アプリケーションの管理
 	app := application.New()
-	app.Register("/", handlers.Index, []string{"default"})
-	app.Register("/example", handlers.Example, nil)	
+	app.Register("/", handler.Index, []string{"default"})
+	app.Register("/example", handler.Example, nil)	
 	
 	n := negroni.New()
 
