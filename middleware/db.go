@@ -2,25 +2,55 @@ package middleware
 
 import (
 	"net/http"
-	"github.com/shinofara/simple-go-web-app/context"	
+	"github.com/shinofara/simple-go-web-app/application"
+	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/config"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	gorp	"gopkg.in/gorp.v1"
+	"fmt"
 )
 
 // DBMiddleware stores DB connector to context.
-func DBMiddleware(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	ctx := r.Context()
+func DBMiddleware(appCfgs map[string]*application.ApplicationConfig, dbCfgs *config.DBConfigs) func(http.ResponseWriter, *http.Request, http.HandlerFunc) {
 
-	logger := context.MustGetLogger(ctx)
+	dataSourceNames := convertDBConfigTable(dbCfgs)
+	
+	return func(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+		ctx := r.Context()
+		logger := context.MustGetLogger(ctx)
 
-	db, _ := sql.Open("mysql", "root:test@/test")
-	dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{"InnoDB", "UTF8"}}
-	defer dbmap.Db.Close()
+		path := r.URL.Path
+		//method := r.Method
 
-	ctx = context.SetDB(ctx, dbmap)
-	r = r.WithContext(ctx)
+		appCfg := appCfgs[application.GenerateIndexKey(path)]
+		logger.Info(fmt.Sprintf("%+v", appCfg.Databases))
 
-	logger.Info("Set character string shinofara to context with the name `name`.")
-  next(rw, r)
+		for _, dbCfgName := range appCfg.Databases {
+			logger.Info(fmt.Sprintf("%+v", dbCfgName))
+			db, _ := sql.Open("mysql", dataSourceNames[dbCfgName])
+			dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{"InnoDB", "UTF8"}}
+			defer dbmap.Db.Close()
+
+			ctx = context.SetDB(ctx, dbCfgName, dbmap)
+		}
+
+		r = r.WithContext(ctx)
+
+		next(rw, r)
+	}
+}
+
+func convertDBConfigTable(dbCfgs *config.DBConfigs) map[string]string {
+	dataSourceNames := make(map[string]string)
+	
+	for key, dbCfg := range *dbCfgs {
+		dataSourceNames[key] = fmt.Sprintf("%s:%s@/%s", dbCfg.User, dbCfg.Password, dbCfg.Name)
+	}
+
+	return dataSourceNames
+}
+
+func getPathConfig(appCfgs map[string]*application.ApplicationConfig, path string) *application.ApplicationConfig {
+	return appCfgs[application.GenerateIndexKey(path)]
 }

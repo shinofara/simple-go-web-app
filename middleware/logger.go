@@ -4,7 +4,7 @@ import (
 	"time"
 	"net/http"
 	"github.com/uber-go/zap"
-	"github.com/shinofara/simple-go-web-app/context"		
+	"github.com/shinofara/simple-go-web-app/context"
 )
 
 type loggerMiddlewre struct {

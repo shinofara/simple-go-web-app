@@ -1,3 +1,4 @@
-cert_file_path: localhost.crt
-key_file_path: localhost.pem
+cert_file_path: ../../localhost.crt
+key_file_path: ../../localhost.pem
 http_port: 8080
+database_yml_path: ../../database.yml

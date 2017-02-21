@@ -9,6 +9,7 @@ type Config struct {
 	CertFilePath   string `yaml:"cert_file_path"`
 	KeyFilePath string `yaml:"key_file_path"`
 	HTTPPort string `yaml:"http_port"`
+	DatabaseYmlPath string `yaml:"database_yml_path"`
 }
 
 func Load(path string) (*Config, error) {

@@ -1,0 +1,6 @@
+default:
+  name: test
+  user: root
+  password: test
+  host: localhost
+  port: 3306

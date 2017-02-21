@@ -14,7 +14,7 @@ func CreateUser(db *gorp.DbMap, name string) error {
 }
 
 func GetUser(db *gorp.DbMap) (*entity.User, error) {
-	user, err := db.Get(entity.User{}, 8)
+	user, err := db.Get(entity.User{}, 1)
 	if err != nil {
 		return nil, err
 	}
