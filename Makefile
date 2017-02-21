@@ -13,7 +13,7 @@ clean:
 	rm -rf cert.pem key.pem vendor localhost.*
 
 run:
-	docker-compose up -d mysql
+	docker-compose up -d mysql smtp
 	cd cmd/example_app/ && \
 	go run main.go -conf ../../config.yml
 
