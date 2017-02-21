@@ -57,7 +57,7 @@ http://qiita.com/haazime/items/6119097071149a362f7f
 | entity     | データストアのデータ構成                                                          |                                                         |
 | middleware | middleware                                                                        |                                                         |
 | render     | HTTPレスポンスを返却する際に、htmlやjsonなどの描画を担当                          |                                                         |
-
+| transfer   | データの転送（メール、ファイルUPLOADなどなど）                                    |                                                         |
 
 # Contribution
 
