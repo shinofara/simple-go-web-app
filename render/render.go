@@ -17,7 +17,7 @@ type Render struct {
 func New(w http.ResponseWriter, r *http.Request) *Render {
 	re := render.New(render.Options{
 		DisableHTTPErrorRendering: true,
-		Directory: "../../templates",
+		Directory: "../../template",
 		Charset: "UTF-8",
 		HTMLContentType: "text/html",
 	})
