@@ -32,6 +32,7 @@ func main() {
 	//アプリケーションの管理
 	app := application.New()
 	app.Register("/", handlers.Index, []string{"default"})
+	app.Register("/example", handlers.Example, nil)	
 	
 	n := negroni.New()
 
