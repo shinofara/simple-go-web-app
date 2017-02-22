@@ -9,7 +9,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	gorp	"gopkg.in/gorp.v1"
 	"fmt"
-	"log"
 )
 
 // DBMiddleware stores DB connector to context.
@@ -46,7 +45,6 @@ func convertDBConfigTable(dbCfgs *config.DBConfigs) map[string]string {
 	
 	for key, dbCfg := range *dbCfgs {
 		dataSourceNames[key] = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s", dbCfg.User, dbCfg.Password, dbCfg.Host, dbCfg.Port, dbCfg.Name)
-		log.Println(dataSourceNames[key])
 	}
 
 	return dataSourceNames

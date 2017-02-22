@@ -77,7 +77,7 @@ func TestConvertDBConfigTable(t *testing.T) {
 
 	dbTables := convertDBConfigTable(dbCfgs)
 
-	expected := map[string]string{"default": "test:test@/test"}
+	expected := map[string]string{"default": "test:test@tcp(localhost:3306)/test"}
 
 	if !reflect.DeepEqual(dbTables, expected) {
 		t.Errorf("Must be equal, \ne is %+v \na is %+v", expected, dbTables)
