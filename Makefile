@@ -14,8 +14,7 @@ clean:
 
 run:
 	docker-compose up -d mysql
-	cd cmd/example_app/ && \
-	go run main.go -conf ../../config.yml
+	docker-compose up
 
 ## Local
 test-all: test vet lint
