@@ -2,11 +2,12 @@ version: '2'
 services:
   app:
     image: golang:1.8.0-alpine
-    command: ./bin/run.sh
+    command: go run cmd/example_app/main.go -conf /config/config.yml
     ports:
       - "8080:8080"
     volumes:
-      - ".:/go/src/github.com/shinofara/simple-go-web-app"
+      - .:/go/src/github.com/shinofara/simple-go-web-app:ro
+      - ./docker/app/config:/config:ro
     working_dir: "/go/src/github.com/shinofara/simple-go-web-app"
     depends_on:
       - mysql
@@ -19,7 +20,7 @@ services:
       MYSQL_USER: test
       MYSQL_DATABASE: test
     volumes:
-      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   smtp:
     image: schickling/mailcatcher
