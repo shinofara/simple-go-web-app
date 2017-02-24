@@ -32,7 +32,8 @@ func main() {
 	//アプリケーションの管理
 	app := application.New()
 	app.Register("get", "/", handler.Index, []string{"default"})
-	app.Register("get", "/example", handler.Example, nil)	
+	app.Register("get", "/example", handler.Example, nil)
+	app.Register("get", "/panic", handler.Panic, nil)		
 	
 	// middlewareを登録
 
@@ -45,6 +46,9 @@ func main() {
 
 	//SampleとRenderは初期化無しで追加
 	app.Router.Use(middleware.DBMiddleware(app.ApplicationConfigs, dbCfgs))
+
+	//panic recover
+	app.Router.Use(middleware.RecoverMiddleware)
 
 	app.Expand(app.Router)
 
