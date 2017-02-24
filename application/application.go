@@ -11,7 +11,8 @@ import (
 )
 
 type Application struct {
-	Router map[string]*Method
+	Router *chi.Mux
+	Tree map[string]*Method
 	ApplicationConfigs map[string]*ApplicationConfig
 }
 
@@ -26,21 +27,22 @@ type ApplicationConfig struct {
 
 func New() *Application {
 	return &Application{
-		Router: make(map[string]*Method),
+		Router: chi.NewRouter(),
+		Tree: make(map[string]*Method),
 		ApplicationConfigs: make(map[string]*ApplicationConfig),
 	}
 }
 
 func (a *Application) Register(method, path string, handler http.HandlerFunc, databases []string) {
-	if a.Router[method] == nil {
-		a.Router[method] = new(Method)
+	if a.Tree[method] == nil {
+		a.Tree[method] = new(Method)
 	}
 
-	if a.Router[method].path == nil {
-		a.Router[method].path = make(map[string]http.HandlerFunc)
+	if a.Tree[method].path == nil {
+		a.Tree[method].path = make(map[string]http.HandlerFunc)
 	}
 
-	a.Router[method].path[path] = handler
+	a.Tree[method].path[path] = handler
 
 
 	key := GenerateIndexKey(path)
@@ -48,7 +50,7 @@ func (a *Application) Register(method, path string, handler http.HandlerFunc, da
 }
 
 func (a *Application) Expand(mx *chi.Mux) {
-	for method, paths := range a.Router {
+	for method, paths := range a.Tree {
 		for path, handler := range paths.path {
 			if method == "get" {
 				mx.Get(path, handler)

@@ -8,7 +8,6 @@ import (
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/handler"
 	"github.com/shinofara/simple-go-web-app/middleware"
-	"github.com/pressly/chi"
 	"log"
 	"net/http"
 )
@@ -35,25 +34,23 @@ func main() {
 	app.Register("get", "/", handler.Index, []string{"default"})
 	app.Register("get", "/example", handler.Example, nil)	
 	
-	r := chi.NewRouter()
-
 	// middlewareを登録
 
 	//contextは全体に関わるので一番最初に設定
-	r.Use(middleware.ContextMiddleware)
+	app.Router.Use(middleware.ContextMiddleware)
 	
 	//Loggerは初期化してから追加
 	l := middleware.NewLoggerMiddleware()
-	r.Use(l.LoggerMiddleware)
+	app.Router.Use(l.LoggerMiddleware)
 
 	//SampleとRenderは初期化無しで追加
-	r.Use(middleware.DBMiddleware(app.ApplicationConfigs, dbCfgs))
+	app.Router.Use(middleware.DBMiddleware(app.ApplicationConfigs, dbCfgs))
 
-	app.Expand(r)
+	app.Expand(app.Router)
 
 	log.Fatal(http.ListenAndServeTLS(
 		fmt.Sprintf(":%s", cfg.HTTPPort),
 		cfg.CertFilePath,
 		cfg.KeyFilePath,
-		r))
+		app.Router))
 }
