@@ -6,12 +6,18 @@ package application
 import (
 	"fmt"
 	"regexp"
-	"github.com/julienschmidt/httprouter"
+	"net/http"
+	"github.com/pressly/chi"	
 )
 
 type Application struct {
-	Router *httprouter.Router
+	Router *chi.Mux
+	Tree map[string]*Method
 	ApplicationConfigs map[string]*ApplicationConfig
+}
+
+type Method struct {
+	path map[string]http.HandlerFunc
 }
 
 type ApplicationConfig struct {
@@ -20,19 +26,37 @@ type ApplicationConfig struct {
 }
 
 func New() *Application {
-	router := httprouter.New()
-
 	return &Application{
-		Router: router,
+		Router: chi.NewRouter(),
+		Tree: make(map[string]*Method),
 		ApplicationConfigs: make(map[string]*ApplicationConfig),
 	}
 }
 
-func (a *Application) Register(path string, handler httprouter.Handle, databases []string) {
-	a.Router.GET(path, handler)
+func (a *Application) Register(method, path string, handler http.HandlerFunc, databases []string) {
+	if a.Tree[method] == nil {
+		a.Tree[method] = new(Method)
+	}
+
+	if a.Tree[method].path == nil {
+		a.Tree[method].path = make(map[string]http.HandlerFunc)
+	}
+
+	a.Tree[method].path[path] = handler
+
 
 	key := GenerateIndexKey(path)
 	a.ApplicationConfigs[key] = &ApplicationConfig{Key: key, Databases: databases}
+}
+
+func (a *Application) Expand(mx *chi.Mux) {
+	for method, paths := range a.Tree {
+		for path, handler := range paths.path {
+			if method == "get" {
+				mx.Get(path, handler)
+			}
+		}
+	}
 }
 
 func GenerateIndexKey(path string) string {

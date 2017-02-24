@@ -23,12 +23,17 @@ func NewLoggerMiddleware() loggerMiddlewre {
 }
 
 // loggerMiddlewre.LoggerMiddleware stores Logger to context.
-func (ml *loggerMiddlewre) LoggerMiddleware(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	ctx := context.SetLogger(r.Context(), ml.logger)
-	r = r.WithContext(ctx)
-	
-	ml.logger.Info("Set logger to context.")
-	next(rw, r)
+func (ml *loggerMiddlewre) LoggerMiddleware(next http.Handler) http.Handler {
+
+	fn := func(w http.ResponseWriter, r *http.Request) { 
+		ctx := context.SetLogger(r.Context(), ml.logger)
+		r = r.WithContext(ctx)
+		
+		ml.logger.Info("Set logger to context.")
+			next.ServeHTTP(w, r)		
+	}
+
+	return http.HandlerFunc(fn)
 }
 
 func JSTTimeFormatter(key string) zap.TimeFormatter {
