@@ -6,12 +6,17 @@ package application
 import (
 	"fmt"
 	"regexp"
-	"github.com/julienschmidt/httprouter"
+	"net/http"
+	"github.com/pressly/chi"	
 )
 
 type Application struct {
-	Router *httprouter.Router
+	Router map[string]*Method
 	ApplicationConfigs map[string]*ApplicationConfig
+}
+
+type Method struct {
+	path map[string]http.HandlerFunc
 }
 
 type ApplicationConfig struct {
@@ -20,19 +25,36 @@ type ApplicationConfig struct {
 }
 
 func New() *Application {
-	router := httprouter.New()
-
 	return &Application{
-		Router: router,
+		Router: make(map[string]*Method),
 		ApplicationConfigs: make(map[string]*ApplicationConfig),
 	}
 }
 
-func (a *Application) Register(path string, handler httprouter.Handle, databases []string) {
-	a.Router.GET(path, handler)
+func (a *Application) Register(method, path string, handler http.HandlerFunc, databases []string) {
+	if a.Router[method] == nil {
+		a.Router[method] = new(Method)
+	}
+
+	if a.Router[method].path == nil {
+		a.Router[method].path = make(map[string]http.HandlerFunc)
+	}
+
+	a.Router[method].path[path] = handler
+
 
 	key := GenerateIndexKey(path)
 	a.ApplicationConfigs[key] = &ApplicationConfig{Key: key, Databases: databases}
+}
+
+func (a *Application) Expand(mx *chi.Mux) {
+	for method, paths := range a.Router {
+		for path, handler := range paths.path {
+			if method == "get" {
+				mx.Get(path, handler)
+			}
+		}
+	}
 }
 
 func GenerateIndexKey(path string) string {

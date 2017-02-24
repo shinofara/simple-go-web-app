@@ -8,10 +8,11 @@ import (
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/handler"
 	"github.com/shinofara/simple-go-web-app/middleware"
-	"github.com/urfave/negroni"
+	"github.com/pressly/chi"
 	"log"
 	"net/http"
 )
+
 
 
 func main() {
@@ -31,28 +32,28 @@ func main() {
 
 	//アプリケーションの管理
 	app := application.New()
-	app.Register("/", handler.Index, []string{"default"})
-	app.Register("/example", handler.Example, nil)	
+	app.Register("get", "/", handler.Index, []string{"default"})
+	app.Register("get", "/example", handler.Example, nil)	
 	
-	n := negroni.New()
+	r := chi.NewRouter()
 
 	// middlewareを登録
 
 	//contextは全体に関わるので一番最初に設定
-	n.Use(negroni.HandlerFunc(middleware.ContextMiddleware))
+	r.Use(middleware.ContextMiddleware)
 	
 	//Loggerは初期化してから追加
 	l := middleware.NewLoggerMiddleware()
-	n.Use(negroni.HandlerFunc(l.LoggerMiddleware))
+	r.Use(l.LoggerMiddleware)
 
 	//SampleとRenderは初期化無しで追加
-	n.Use(negroni.HandlerFunc(middleware.DBMiddleware(app.ApplicationConfigs, dbCfgs)))
+	r.Use(middleware.DBMiddleware(app.ApplicationConfigs, dbCfgs))
 
-	n.UseHandler(app.Router)
+	app.Expand(r)
 
 	log.Fatal(http.ListenAndServeTLS(
 		fmt.Sprintf(":%s", cfg.HTTPPort),
 		cfg.CertFilePath,
 		cfg.KeyFilePath,
-		n))
+		r))
 }

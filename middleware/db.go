@@ -12,11 +12,18 @@ import (
 )
 
 // DBMiddleware stores DB connector to context.
-func DBMiddleware(appCfgs map[string]*application.ApplicationConfig, dbCfgs *config.DBConfigs) func(http.ResponseWriter, *http.Request, http.HandlerFunc) {
-
+func DBMiddleware(appCfgs map[string]*application.ApplicationConfig, dbCfgs *config.DBConfigs) func(next http.Handler) http.Handler {
 	dataSourceNames := convertDBConfigTable(dbCfgs)
 	
-	return func(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+	return func(next http.Handler) http.Handler {
+
+		fn := dbMiddleware(next, appCfgs, dataSourceNames)
+		return http.HandlerFunc(fn)
+	}
+}
+
+func dbMiddleware(next http.Handler, appCfgs map[string]*application.ApplicationConfig, dataSourceNames map[string]string) func(rw http.ResponseWriter, r *http.Request) {
+		return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 
 		path := r.URL.Path
@@ -34,9 +41,8 @@ func DBMiddleware(appCfgs map[string]*application.ApplicationConfig, dbCfgs *con
 			}
 		}
 
-		r = r.WithContext(ctx)
-
-		next(rw, r)
+			r = r.WithContext(ctx)
+			next.ServeHTTP(w, r)					
 	}
 }
 

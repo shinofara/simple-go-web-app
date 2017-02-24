@@ -1,14 +1,13 @@
 package handler
 
 import (
-	"github.com/julienschmidt/httprouter"
 	"github.com/shinofara/simple-go-web-app/render"
 	"github.com/shinofara/simple-go-web-app/service"
 	"github.com/shinofara/simple-go-web-app/context"	
 	"net/http"
 )
 
-func Index(rw http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func Index(rw http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	logger := context.MustGetLogger(ctx)
 	us := service.NewUser(ctx)
