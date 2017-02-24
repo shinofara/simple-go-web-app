@@ -12,3 +12,4 @@ import:
   version: ^2.0.0
 - package: github.com/uber-go/atomic
   version: ^1.0.0
+- package: github.com/gorilla/schema
