@@ -8,12 +8,12 @@ import (
 
 const CtxKeySession = "SESSION"
 
-func SetSession(ctx context.Context, sess *session.Session) context.Context {
-	return context.WithValue(ctx, CtxKeySession, sess)
+func SetSessionStore(ctx context.Context, store *session.SessionStore) context.Context {
+	return context.WithValue(ctx, CtxKeySession, store)
 }
 
-func GetSession(ctx context.Context) (*session.Session, error) {
-	sess, ok := ctx.Value(CtxKeySession).(*session.Session)
+func GetSessionStore(ctx context.Context) (*session.SessionStore, error) {
+	sess, ok := ctx.Value(CtxKeySession).(*session.SessionStore)
 	if ok {
 		return sess, nil
 	}
@@ -21,8 +21,8 @@ func GetSession(ctx context.Context) (*session.Session, error) {
 	return nil, fmt.Errorf("Failed to get SESSION from context")
 }
 
-func MustGetSession(ctx context.Context) *session.Session {
-	sess, err := GetSession(ctx)
+func MustGetSessionStore(ctx context.Context) *session.SessionStore {
+	sess, err := GetSessionStore(ctx)
 	if err != nil {
 
 

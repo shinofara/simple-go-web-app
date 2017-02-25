@@ -21,8 +21,8 @@ func (u *UserService) Register(name string) (*entity.User, error) {
 	logger := context.MustGetLogger(u.ctx)
 	
 	//session sample
-	session := context.MustGetSession(u.ctx)
-	login, err := repository.GetLoginSession(session)
+	sessionStore := context.MustGetSessionStore(u.ctx)
+	login, err := repository.GetLoginSession(sessionStore)
 	if err == nil {
 		logger.Info(fmt.Sprintf("%+v", login))
 	}
@@ -31,7 +31,7 @@ func (u *UserService) Register(name string) (*entity.User, error) {
 		logger.Info(err.Error())
 	}
 	
-	_, err = repository.CreateLoginSession(session)
+	_, err = repository.CreateLoginSession(sessionStore)
 	if err != nil {
 		logger.Info(err.Error())
 	}
