@@ -4,7 +4,7 @@ import (
 	"github.com/shinofara/simple-go-web-app/context"
 	"github.com/shinofara/simple-go-web-app/repository"
 	"github.com/shinofara/simple-go-web-app/entity"
-	"github.com/shinofara/simple-go-web-app/transfer"	
+	"github.com/shinofara/simple-go-web-app/transfer"
 )
 
 type UserService struct {
