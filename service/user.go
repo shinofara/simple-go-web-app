@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"github.com/shinofara/simple-go-web-app/context"
 	"github.com/shinofara/simple-go-web-app/repository"
 	"github.com/shinofara/simple-go-web-app/entity"
@@ -18,11 +19,27 @@ func NewUser(ctx context.Context) *UserService {
 func (u *UserService) Register(name string) (*entity.User, error) {
 	db := context.MustGetDB(u.ctx, "default")
 	logger := context.MustGetLogger(u.ctx)
+	
+	//session sample
+	session := context.MustGetSession(u.ctx)
+	login, err := repository.GetLoginSession(session)
+	if err == nil {
+		logger.Info(fmt.Sprintf("%+v", login))
+	}
+
+	if err != nil {
+		logger.Info(err.Error())
+	}
+	
+	_, err = repository.CreateLoginSession(session)
+	if err != nil {
+		logger.Info(err.Error())
+	}
 
 	//ここでentityと関連付けを行う
 	db.AddTableWithName(entity.User{}, "users").SetKeys(true, "ID")
 
-	err := db.CreateTablesIfNotExists()
+	err = db.CreateTablesIfNotExists()
 	if err != nil {
 		return	nil, err
 	}

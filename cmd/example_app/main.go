@@ -44,6 +44,9 @@ func main() {
 	l := middleware.NewLoggerMiddleware()
 	app.Router.Use(l.LoggerMiddleware)
 
+	//Loggerは初期化してから追加
+	app.Router.Use(middleware.SessionMiddleware("secret"))
+
 	//SampleとRenderは初期化無しで追加
 	app.Router.Use(middleware.DBMiddleware(app.ApplicationConfigs, dbCfgs))
 
