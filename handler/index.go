@@ -4,7 +4,6 @@ import (
 	"github.com/shinofara/simple-go-web-app/render"
 	"github.com/shinofara/simple-go-web-app/service"
 	"github.com/shinofara/simple-go-web-app/context"
-	"github.com/shinofara/simple-go-web-app/session"
 	"github.com/gorilla/schema"
 	"net/http"
 )
@@ -26,10 +25,6 @@ func Index(rw http.ResponseWriter, r *http.Request) {
 		// Handle error
 	}
 
-	//session
-	s := session.New(rw, r, "secret")
-	s.SetLoginData()
-	
 	ctx := r.Context()
 	logger := context.MustGetLogger(ctx)
 	us := service.NewUser(ctx)
