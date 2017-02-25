@@ -1,0 +1,8 @@
+cert_file_path: cert.pem
+key_file_path: key.pem
+http_port: 80
+database_yml_path: database.yml
+
+smtp:
+  host: localhost
+  port: 1025
