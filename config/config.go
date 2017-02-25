@@ -5,11 +5,14 @@ import (
 	"io/ioutil"
 )
 
+var cfg Config
+
 type Config struct {
 	CertFilePath   string `yaml:"cert_file_path"`
 	KeyFilePath string `yaml:"key_file_path"`
 	HTTPPort string `yaml:"http_port"`
 	DatabaseYmlPath string `yaml:"database_yml_path"`
+	SMTP *SMTP `yaml:"smtp"`
 }
 
 func Load(path string) (*Config, error) {
@@ -18,7 +21,6 @@ func Load(path string) (*Config, error) {
 		return nil, err
 	}
 
-	var cfg Config
 	if err := yaml.Unmarshal(buf, &cfg); err != nil {
 		return nil, err
 	}

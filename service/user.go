@@ -32,7 +32,7 @@ func (u *UserService) Register(name string) (*entity.User, error) {
 		return nil, err		
 	}
 
-	if err := transfer.SendActivationEmail(); err != nil {
+	if err := transfer.SendActivationEmail(u.ctx); err != nil {
 		logger.Error(err.Error())
 	}
 
