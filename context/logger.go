@@ -1,19 +1,19 @@
 package context
 
 import (
-	"github.com/uber-go/zap"	
+	"github.com/uber-go/zap"
 	"fmt"
 	"context"
 )
 
 // SetLogger sets logger to context.
 func SetLogger(ctx context.Context, logger zap.Logger) context.Context {
-	return context.WithValue(ctx, "LOGGER", logger)
+	return context.WithValue(ctx, contextKey("LOGGER"), logger)
 }
 
 // GetLogger sets logger from context.
 func GetLogger(ctx context.Context) (zap.Logger, error) {
-	l, ok := ctx.Value("LOGGER").(zap.Logger)
+	l, ok := ctx.Value(contextKey("LOGGER")).(zap.Logger)
 	if ok {
 		return l, nil
 	}

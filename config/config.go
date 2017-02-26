@@ -1,3 +1,4 @@
+// Package config 設定等を管理
 package config
 
 import (
@@ -7,6 +8,7 @@ import (
 
 var cfg Config
 
+// Config アプリケーション起動に必要な設定を保持
 type Config struct {
 	CertFilePath   string `yaml:"cert_file_path"`
 	KeyFilePath string `yaml:"key_file_path"`
@@ -15,6 +17,7 @@ type Config struct {
 	SMTP *SMTP `yaml:"smtp"`
 }
 
+// Load yamlから設定を読み込む
 func Load(path string) (*Config, error) {
 	buf, err := ioutil.ReadFile(path)
 	if err != nil {
