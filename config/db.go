@@ -5,7 +5,10 @@ import (
 	"io/ioutil"
 )
 
+// DBConfigs 複数のDB設定を保持
 type DBConfigs map[string]*DBConfig
+
+// DBConfig DB接続情報を保持
 type DBConfig struct {
 	Name string `yaml:"name"`
 	User string `yaml:"user"`
@@ -14,6 +17,7 @@ type DBConfig struct {
 	Port int `yaml:"port"`
 }
 
+// LoadDBConfig yaml pathを元にDB接続情報を読み込む
 func LoadDBConfig(path string) (*DBConfigs, error) {
 	buf, err := ioutil.ReadFile(path)
 	if err != nil {

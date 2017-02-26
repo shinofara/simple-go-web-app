@@ -7,7 +7,7 @@ import (
 )
 
 // CtxKeySession コンテキスト内にSessionを管理するKey
-const CtxKeySession = "SESSION"
+const CtxKeySession = contextKey("SESSION")
 
 // SetSessionStore sets sesion store to context.
 func SetSessionStore(ctx context.Context, store *session.Store) context.Context {

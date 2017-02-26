@@ -3,5 +3,8 @@ package context
 
 import "context"
 
+// contextKey key
+type contextKey string
+
 // Context wraps original context.
 type Context context.Context
