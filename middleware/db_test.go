@@ -5,7 +5,6 @@ import (
 	"testing"
 	"net/http"
 	"net/http/httptest"
-	"github.com/pressly/chi"		
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/application"
 	"github.com/shinofara/simple-go-web-app/context"
@@ -19,21 +18,9 @@ func TestDBMiddleware(t *testing.T) {
 		},
 	}
 
-	dbCfgs := &config.DBConfigs{
-		"default": &config.DBConfig{
-			Name: "test",
-			User: "test",
-			Password: "test",
-			Host: "localhost",
-			Port: 3306,
-		},
-		"read": &config.DBConfig{
-			Name: "read_test",
-			User: "read_test",
-			Password: "read_test",
-			Host: "read_host",
-			Port: 3306,
-		},		
+	dataSourceNames := map[string]string{
+		"default": "test",
+		"read": "read",
 	}
 
 	//仮想のリクエストを生成
@@ -53,15 +40,10 @@ func TestDBMiddleware(t *testing.T) {
 		}
 	})
 
-	//テスト用httpサーバを立ち上げ、テストリクエストを実行
-	r := chi.NewRouter()
-	r.Use(ContextMiddleware)
-	l := NewLoggerMiddleware()	
-	r.Use(l.LoggerMiddleware)
-	r.Use(DBMiddleware(appCfg, dbCfgs))
-	r.Get("/", testHandler)
+	dmHandler := dbMiddleware(testHandler, appCfg, dataSourceNames)
 	recorder := httptest.NewRecorder()
-	r.ServeHTTP(recorder, request)
+	handler := http.HandlerFunc(dmHandler)
+	handler.ServeHTTP(recorder, request)
 }
 
 func TestConvertDBConfigTable(t *testing.T) {

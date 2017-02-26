@@ -22,6 +22,7 @@ func DBMiddleware(appCfgs application.ApplicationConfigs, dbCfgs *config.DBConfi
 	}
 }
 
+// dbMiddleware http.Handler
 func dbMiddleware(next http.Handler, appCfgs application.ApplicationConfigs, dataSourceNames map[string]string) func(rw http.ResponseWriter, r *http.Request) {
 		return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
@@ -46,6 +47,7 @@ func dbMiddleware(next http.Handler, appCfgs application.ApplicationConfigs, dat
 	}
 }
 
+// convertDBConfigTable yamlの構成を使いやすい形に変換
 func convertDBConfigTable(dbCfgs *config.DBConfigs) map[string]string {
 	dataSourceNames := make(map[string]string)
 	
