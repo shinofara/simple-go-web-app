@@ -27,7 +27,7 @@ vet:
 	@go vet $$(glide novendor)
 
 lint:
-	@for pkg in $$(go list ./... | grep -v /vendor/) ; do \
+	@for pkg in $$(glide novendor) ; do \
 		golint $$pkg ; \
 	done
 
@@ -38,3 +38,9 @@ ci-test:
 
 ci-vet:
 	cd "$(WORK_DIR)/src/$(IMPORT_PATH)/" && go vet $$(glide novendor)
+
+ci-lint:
+	cd "$(WORK_DIR)/src/$(IMPORT_PATH)/" && \
+	for pkg in $$(glide novendor) ; do \
+		golint $$pkg ; \
+	done

@@ -33,3 +33,4 @@ test:
     - mkdir -p $CIRCLE_TEST_REPORTS/golang
     - make ci-test
     - make ci-vet
+    - make ci-lint
