@@ -1,3 +1,4 @@
+// Package render 表示に関するパッケージ
 package render
 
 import (
@@ -7,6 +8,7 @@ import (
 	"github.com/uber-go/zap"		
 )
 
+// Render 表示に必要な情報を管理
 type Render struct {
 	w http.ResponseWriter
 	r *http.Request	
@@ -14,6 +16,7 @@ type Render struct {
 	logger zap.Logger
 }
 
+// New creates a Render
 func New(w http.ResponseWriter, r *http.Request) *Render {
 	re := render.New(render.Options{
 		DisableHTTPErrorRendering: true,
@@ -32,6 +35,7 @@ func New(w http.ResponseWriter, r *http.Request) *Render {
 	}
 }
 
+// HTML 指定されたテンプレートにデータバインドを行って出力
 func (r *Render) HTML(name string, data map[string]string) {
 	err := r.render.HTML(r.w, http.StatusOK, name, data)
 	if err != nil{
