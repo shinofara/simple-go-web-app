@@ -5,7 +5,7 @@ import (
 	"testing"
 	"net/http"
 	"net/http/httptest"
-	"github.com/urfave/negroni"
+	"github.com/pressly/chi"		
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/application"
 	"github.com/shinofara/simple-go-web-app/context"
@@ -54,14 +54,14 @@ func TestDBMiddleware(t *testing.T) {
 	})
 
 	//テスト用httpサーバを立ち上げ、テストリクエストを実行
-	n := negroni.New()
-	n.Use(negroni.HandlerFunc(ContextMiddleware))
+	r := chi.NewRouter()
+	r.Use(ContextMiddleware)
 	l := NewLoggerMiddleware()	
-	n.Use(negroni.HandlerFunc(l.LoggerMiddleware))	
-	n.Use(negroni.HandlerFunc(DBMiddleware(appCfg, dbCfgs)))
-	n.UseHandler(testHandler)
+	r.Use(l.LoggerMiddleware)
+	r.Use(DBMiddleware(appCfg, dbCfgs))
+	r.Get("/", testHandler)
 	recorder := httptest.NewRecorder()
-	n.ServeHTTP(recorder, request)
+	r.ServeHTTP(recorder, request)
 }
 
 func TestConvertDBConfigTable(t *testing.T) {
@@ -83,25 +83,4 @@ func TestConvertDBConfigTable(t *testing.T) {
 		t.Errorf("Must be equal, \ne is %+v \na is %+v", expected, dbTables)
 	}
 	
-}
-
-func TestGetPathConfig(t *testing.T) {
-	appCfg := &application.ApplicationConfig{
-		Key: "get",
-		Databases: []string{"default", "read"},
-	}
-	
-	appCfgs := map[string]*application.ApplicationConfig{
-		"get": appCfg,
-	}
-
-	actual := getPathConfig(appCfgs, "/")
-	if !reflect.DeepEqual(appCfg, actual) {
-		t.Errorf("Must be equal, \ne is %+v \na is %+v", appCfg, actual)
-	}
-
-	actual = getPathConfig(appCfgs, "")
-	if !reflect.DeepEqual(appCfg, actual) {
-		t.Errorf("Must be equal, \ne is %+v \na is %+v", appCfg, actual)
-	}	
 }
