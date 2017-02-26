@@ -12,8 +12,7 @@ import (
 	"net/http"
 )
 
-
-
+// main メイン処理
 func main() {
 	 var configPath string
 	flag.StringVar(&configPath, "conf", "", "path to config yaml path")	
@@ -48,7 +47,7 @@ func main() {
 	app.Router.Use(middleware.SessionMiddleware("secret"))
 
 	//SampleとRenderは初期化無しで追加
-	app.Router.Use(middleware.DBMiddleware(app.ApplicationConfigs, dbCfgs))
+	app.Router.Use(middleware.DBMiddleware(app.Configs, dbCfgs))
 
 	//panic recover
 	app.Router.Use(middleware.RecoverMiddleware)

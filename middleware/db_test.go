@@ -11,8 +11,8 @@ import (
 )
 
 func TestDBMiddleware(t *testing.T) {
-	appCfg := map[string]*application.ApplicationConfig{
-		"get": &application.ApplicationConfig{
+	appCfg := map[string]*application.Config{
+		"get": &application.Config{
 			Key: "get",
 			Databases: []string{"default", "read"},
 		},

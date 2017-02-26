@@ -10,13 +10,13 @@ import (
 const CtxKeySession = "SESSION"
 
 // SetSessionStore sets sesion store to context.
-func SetSessionStore(ctx context.Context, store *session.SessionStore) context.Context {
+func SetSessionStore(ctx context.Context, store *session.Store) context.Context {
 	return context.WithValue(ctx, CtxKeySession, store)
 }
 
 // GetSessionStore sets sesion store from context.
-func GetSessionStore(ctx context.Context) (*session.SessionStore, error) {
-	sess, ok := ctx.Value(CtxKeySession).(*session.SessionStore)
+func GetSessionStore(ctx context.Context) (*session.Store, error) {
+	sess, ok := ctx.Value(CtxKeySession).(*session.Store)
 	if ok {
 		return sess, nil
 	}
@@ -25,7 +25,7 @@ func GetSessionStore(ctx context.Context) (*session.SessionStore, error) {
 }
 
 // MustGetSessionStore 確実にsession storeをsyutoku
-func MustGetSessionStore(ctx context.Context) *session.SessionStore {
+func MustGetSessionStore(ctx context.Context) *session.Store {
 	sess, err := GetSessionStore(ctx)
 	if err != nil {
 		panic(err)

@@ -7,23 +7,25 @@ import (
 	"github.com/shinofara/simple-go-web-app/context"
 )
 
-type loggerMiddlewre struct {
+// LoggerMiddleware loggerをwrap
+type LoggerMiddlewre struct {
 	logger zap.Logger
 }
 
-func NewLoggerMiddleware() loggerMiddlewre {
+// NewLoggerMiddleware creates a loggerMiddleware
+func NewLoggerMiddleware() *LoggerMiddlewre {
 	logger := zap.New(
 		zap.NewJSONEncoder(JSTTimeFormatter("timestamp")), // drop timestamps in tests
 		zap.DebugLevel,
 	)
 	
-	return loggerMiddlewre{
+	return &LoggerMiddlewre{
 		logger: logger,
 	}
 }
 
 // loggerMiddlewre.LoggerMiddleware stores Logger to context.
-func (ml *loggerMiddlewre) LoggerMiddleware(next http.Handler) http.Handler {
+func (ml *LoggerMiddlewre) LoggerMiddleware(next http.Handler) http.Handler {
 
 	fn := func(w http.ResponseWriter, r *http.Request) { 
 		ctx := context.SetLogger(r.Context(), ml.logger)

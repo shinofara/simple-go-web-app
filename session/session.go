@@ -7,15 +7,15 @@ import (
 )
 
 // SessionStore セッションストアとRequest/Responseを管理
-type SessionStore struct {
+type Store struct {
 	store sessions.Store
 	w http.ResponseWriter
 	r *http.Request
 }
 
 // NewSessionStore creates a SessionStore
-func NewSessionStore(w http.ResponseWriter, r *http.Request, secret string) *SessionStore {
-	return &SessionStore{
+func NewSessionStore(w http.ResponseWriter, r *http.Request, secret string) *Store {
+	return &Store{
 		store: sessions.NewCookieStore([]byte(secret)),
 		r: r,
 		w: w,
@@ -23,7 +23,7 @@ func NewSessionStore(w http.ResponseWriter, r *http.Request, secret string) *Ses
 }
 
 // NewSession creates a Session
-func (s *SessionStore) NewSession(name string) *Session {
+func (s *Store) NewSession(name string) *Session {
 	session, err := s.store.Get(s.r, name)
 	if err != nil {
 		panic(err)
