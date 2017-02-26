@@ -3,13 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
-
+	"log"
+	"net/http"
 	"github.com/shinofara/simple-go-web-app/application"
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/handler"
-	"github.com/shinofara/simple-go-web-app/middleware"
-	"log"
-	"net/http"
+	"github.com/shinofara/simple-go-web-app/middleware"	
 )
 
 // main メイン処理

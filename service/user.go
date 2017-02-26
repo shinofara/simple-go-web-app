@@ -8,14 +8,17 @@ import (
 	"github.com/shinofara/simple-go-web-app/transfer"
 )
 
+// UserService ユーザ関連のサービスを扱う
 type UserService struct {
 	ctx context.Context
 }
 
+// NewUser creates a UserService
 func NewUser(ctx context.Context) *UserService {
 	return &UserService{ctx}
 }
 
+// Register ユーザ登録手続きを行う
 func (u *UserService) Register(name string) (*entity.User, error) {
 	db := context.MustGetDB(u.ctx, "default")
 	logger := context.MustGetLogger(u.ctx)

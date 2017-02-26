@@ -2,11 +2,12 @@ package middleware
 
 import (
 	"github.com/shinofara/simple-go-web-app/context"
-	"runtime/debug"	
+	"runtime/debug"
 	"net/http"
 	"fmt"
 )
 
+// RecoverMiddleware panic発生時のhandlerを設定
 func RecoverMiddleware(next http.Handler) http.Handler {
 	fn := func(rw http.ResponseWriter, r *http.Request) {
 		defer func() {

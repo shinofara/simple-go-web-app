@@ -8,10 +8,12 @@ import (
 	"net/http"
 )
 
+// User ユーザ情報
 type User struct {
 	Name  string
 }
 
+// Index Get:/の処理を定義
 func Index(rw http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {

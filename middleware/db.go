@@ -6,7 +6,9 @@ import (
 	"github.com/shinofara/simple-go-web-app/context"
 	"github.com/shinofara/simple-go-web-app/config"
 	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
+
+	// MySQL driver
+	_ "github.com/go-sql-driver/mysql"	
 	gorp	"gopkg.in/gorp.v1"
 	"fmt"
 )

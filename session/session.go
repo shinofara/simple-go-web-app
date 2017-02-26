@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// SessionStore セッションストアとRequest/Responseを管理
+// Store セッションストアとRequest/Responseを管理
 type Store struct {
 	store sessions.Store
 	w http.ResponseWriter
