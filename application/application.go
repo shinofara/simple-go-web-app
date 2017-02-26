@@ -15,7 +15,7 @@ import (
 type Application struct {
 	Router *chi.Mux
 	tree map[string]*Method
-	ApplicationConfigs map[string]*ApplicationConfig
+	Configs map[string]*Config
 }
 
 // Method http method毎のpathを保持
@@ -23,12 +23,12 @@ type Method struct {
 	path map[string]http.HandlerFunc
 }
 
-// ApplicationConfigs mapを型として定義
-type ApplicationConfigs map[string]*ApplicationConfig
+// Configs mapを型として定義
+type Configs map[string]*Config
 
-// ApplicationConfig 各pathが必要とする設定を保持
+// Config 各pathが必要とする設定を保持
 // 現時点では使用するDB名のみ
-type ApplicationConfig struct {
+type Config struct {
 	Key string
 	Databases []string
 }
@@ -38,7 +38,7 @@ func New() *Application {
 	return &Application{
 		Router: chi.NewRouter(),
 		tree: make(map[string]*Method),
-		ApplicationConfigs: make(map[string]*ApplicationConfig),
+		Configs: make(map[string]*Config),
 	}
 }
 
@@ -55,7 +55,7 @@ func (a *Application) Register(method, path string, handler http.HandlerFunc, da
 	a.tree[method].path[path] = handler
 
 	key := generateIndexKey(path)
-	a.ApplicationConfigs[key] = &ApplicationConfig{Key: key, Databases: databases}
+	a.Configs[key] = &Config{Key: key, Databases: databases}
 }
 
 // Expand muxに保持しているpathを展開
@@ -70,7 +70,7 @@ func (a *Application) Expand(mx *chi.Mux) {
 }
 
 // GetPathConfig pathに対応したconfigを取得
-func (a *ApplicationConfigs) GetPathConfig(path string) *ApplicationConfig {
+func (a *Configs) GetPathConfig(path string) *Config {
 	return (*a)[generateIndexKey(path)]
 }
 

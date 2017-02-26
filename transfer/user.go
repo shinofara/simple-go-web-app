@@ -1,9 +1,10 @@
 package transfer
 
 import (
-	"github.com/shinofara/simple-go-web-app/context"	
+	"github.com/shinofara/simple-go-web-app/context"
 )
 
+// SendActivationEmail アクティベーション要求メールを送信
 func SendActivationEmail(ctx context.Context) error {
 	m := NewMailer(ctx)
 	return m.Send(

@@ -6,13 +6,15 @@ import (
 	"github.com/shinofara/simple-go-web-app/context"
 	"github.com/shinofara/simple-go-web-app/config"
 	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
+
+	// MySQL driver
+	_ "github.com/go-sql-driver/mysql"	
 	gorp	"gopkg.in/gorp.v1"
 	"fmt"
 )
 
 // DBMiddleware stores DB connector to context.
-func DBMiddleware(appCfgs application.ApplicationConfigs, dbCfgs *config.DBConfigs) func(next http.Handler) http.Handler {
+func DBMiddleware(appCfgs application.Configs, dbCfgs *config.DBConfigs) func(next http.Handler) http.Handler {
 	dataSourceNames := convertDBConfigTable(dbCfgs)
 	
 	return func(next http.Handler) http.Handler {
@@ -23,7 +25,7 @@ func DBMiddleware(appCfgs application.ApplicationConfigs, dbCfgs *config.DBConfi
 }
 
 // dbMiddleware http.Handler
-func dbMiddleware(next http.Handler, appCfgs application.ApplicationConfigs, dataSourceNames map[string]string) func(rw http.ResponseWriter, r *http.Request) {
+func dbMiddleware(next http.Handler, appCfgs application.Configs, dataSourceNames map[string]string) func(rw http.ResponseWriter, r *http.Request) {
 		return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 

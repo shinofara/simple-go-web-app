@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// ContextMiddleware Contextの初期設定を行う
 func ContextMiddleware(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		//1.7からはbackgroudだけではなく、net/httpにもcontextが追加されたので、それを利用する

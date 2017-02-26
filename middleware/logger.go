@@ -7,23 +7,25 @@ import (
 	"github.com/shinofara/simple-go-web-app/context"
 )
 
-type loggerMiddlewre struct {
+// LoggerMiddleware loggerをwrap
+type LoggerMiddleware struct {
 	logger zap.Logger
 }
 
-func NewLoggerMiddleware() loggerMiddlewre {
+// NewLoggerMiddleware creates a loggerMiddleware
+func NewLoggerMiddleware() *LoggerMiddleware {
 	logger := zap.New(
-		zap.NewJSONEncoder(JSTTimeFormatter("timestamp")), // drop timestamps in tests
+		zap.NewJSONEncoder(jSTTimeFormatter("timestamp")), // drop timestamps in tests
 		zap.DebugLevel,
 	)
 	
-	return loggerMiddlewre{
+	return &LoggerMiddleware{
 		logger: logger,
 	}
 }
 
-// loggerMiddlewre.LoggerMiddleware stores Logger to context.
-func (ml *loggerMiddlewre) LoggerMiddleware(next http.Handler) http.Handler {
+// LoggerMiddleware stores Logger to context.
+func (ml *LoggerMiddleware) LoggerMiddleware(next http.Handler) http.Handler {
 
 	fn := func(w http.ResponseWriter, r *http.Request) { 
 		ctx := context.SetLogger(r.Context(), ml.logger)
@@ -36,7 +38,8 @@ func (ml *loggerMiddlewre) LoggerMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(fn)
 }
 
-func JSTTimeFormatter(key string) zap.TimeFormatter {
+// jSTTimeFormatter 日本時刻に設定
+func jSTTimeFormatter(key string) zap.TimeFormatter {
     return zap.TimeFormatter(func(t time.Time) zap.Field {
         const layout = "2006-01-02 15:04:05"
         jst := time.FixedZone("Asia/Tokyo", 9*60*60)

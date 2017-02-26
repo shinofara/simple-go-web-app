@@ -16,3 +16,4 @@ install:
 script:
   - make ci-test
   - make ci-vet
+  - make ci-lint
