@@ -12,7 +12,7 @@ import (
 )
 
 // DBMiddleware stores DB connector to context.
-func DBMiddleware(appCfgs map[string]*application.ApplicationConfig, dbCfgs *config.DBConfigs) func(next http.Handler) http.Handler {
+func DBMiddleware(appCfgs application.ApplicationConfigs, dbCfgs *config.DBConfigs) func(next http.Handler) http.Handler {
 	dataSourceNames := convertDBConfigTable(dbCfgs)
 	
 	return func(next http.Handler) http.Handler {
@@ -22,14 +22,14 @@ func DBMiddleware(appCfgs map[string]*application.ApplicationConfig, dbCfgs *con
 	}
 }
 
-func dbMiddleware(next http.Handler, appCfgs map[string]*application.ApplicationConfig, dataSourceNames map[string]string) func(rw http.ResponseWriter, r *http.Request) {
+func dbMiddleware(next http.Handler, appCfgs application.ApplicationConfigs, dataSourceNames map[string]string) func(rw http.ResponseWriter, r *http.Request) {
 		return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 
 		path := r.URL.Path
 		//method := r.Method
 
-		appCfg := appCfgs[application.GenerateIndexKey(path)]
+		appCfg := appCfgs.GetPathConfig(path)
 
 		if appCfg != nil {
 			for _, dbCfgName := range appCfg.Databases {
@@ -42,7 +42,7 @@ func dbMiddleware(next http.Handler, appCfgs map[string]*application.Application
 		}
 
 			r = r.WithContext(ctx)
-			next.ServeHTTP(w, r)					
+			next.ServeHTTP(w, r)
 	}
 }
 
@@ -54,8 +54,4 @@ func convertDBConfigTable(dbCfgs *config.DBConfigs) map[string]string {
 	}
 
 	return dataSourceNames
-}
-
-func getPathConfig(appCfgs map[string]*application.ApplicationConfig, path string) *application.ApplicationConfig {
-	return appCfgs[application.GenerateIndexKey(path)]
 }
