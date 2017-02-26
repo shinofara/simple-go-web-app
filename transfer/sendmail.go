@@ -7,16 +7,19 @@ import (
 	"github.com/shinofara/simple-go-web-app/context"		
 )
 
+// Mailer メール送信に関わる処理を定義
 type Mailer struct {
 	ctx context.Context
 }
 
+// NewMailer creates a Mailer
 func NewMailer(ctx context.Context) *Mailer {
 	return &Mailer{
 		ctx: ctx,
 	}
 }
 
+// Send メール送信
 func (m *Mailer) Send(from string, to, cc []string, subject, body string) error {
 	logger := context.MustGetLogger(m.ctx)
 	smtpCfg := config.GetSMTP()
