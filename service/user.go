@@ -47,7 +47,7 @@ func (u *UserService) Register(name string) (*entity.User, error) {
 		return	nil, err
 	}
 
-	err = repository.CreateUser(db, name)
+	err = repository.CreateUser(db, name, "password")
 	if err != nil {
 		return nil, err		
 	}
