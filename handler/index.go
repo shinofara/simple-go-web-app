@@ -4,6 +4,7 @@ import (
 	"github.com/shinofara/simple-go-web-app/render"
 	"github.com/shinofara/simple-go-web-app/service"
 	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/entity"	
 	"github.com/gorilla/schema"
 	"net/http"
 )
@@ -29,8 +30,10 @@ func Index(rw http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
 	logger := context.MustGetLogger(ctx)
-	us := service.NewUser(ctx)
-	user, err := us.Register(u.Name)
+
+	user := entity.NewUser(u.Name, "password")
+	
+	user, err = service.Register(ctx, user)
 
 	re := render.New(rw, r)
 	if err != nil {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/smtp"
 	"github.com/shinofara/simple-go-web-app/config"
-	"github.com/shinofara/simple-go-web-app/context"		
+	"github.com/shinofara/simple-go-web-app/context"
 )
 
 // Mailer メール送信に関わる処理を定義
@@ -21,9 +21,7 @@ func NewMailer(ctx context.Context) *Mailer {
 
 // Send メール送信
 func (m *Mailer) Send(from string, to, cc []string, subject, body string) error {
-	logger := context.MustGetLogger(m.ctx)
 	smtpCfg := config.GetSMTP()
-	logger.Info(fmt.Sprintf("%+v", smtpCfg))
 
 	smtpServer := fmt.Sprintf("%s:%d", smtpCfg.Host, smtpCfg.Port)
 

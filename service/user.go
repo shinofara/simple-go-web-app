@@ -8,23 +8,13 @@ import (
 	"github.com/shinofara/simple-go-web-app/transfer"
 )
 
-// UserService ユーザ関連のサービスを扱う
-type UserService struct {
-	ctx context.Context
-}
-
-// NewUser creates a UserService
-func NewUser(ctx context.Context) *UserService {
-	return &UserService{ctx}
-}
-
 // Register ユーザ登録手続きを行う
-func (u *UserService) Register(name string) (*entity.User, error) {
-	db := context.MustGetDB(u.ctx, "default")
-	logger := context.MustGetLogger(u.ctx)
+func Register(ctx context.Context, user *entity.User) (*entity.User, error) {
+	db := context.MustGetDB(ctx, "default")
+	logger := context.MustGetLogger(ctx)
 	
 	//session sample
-	sessionStore := context.MustGetSessionStore(u.ctx)
+	sessionStore := context.MustGetSessionStore(ctx)
 	login, err := repository.GetLoginSession(sessionStore)
 	if err == nil {
 		logger.Info(fmt.Sprintf("%+v", login))
@@ -47,12 +37,12 @@ func (u *UserService) Register(name string) (*entity.User, error) {
 		return	nil, err
 	}
 
-	err = repository.CreateUser(db, name, "password")
-	if err != nil {
+	err = repository.CreateUser(db, user)
+	if err != nil { 
 		return nil, err		
 	}
 
-	if err := transfer.SendActivationEmail(u.ctx); err != nil {
+	if err := transfer.SendActivationEmail(ctx); err != nil {
 		logger.Error(err.Error())
 	}
 
