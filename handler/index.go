@@ -4,9 +4,11 @@ import (
 	"github.com/shinofara/simple-go-web-app/render"
 	"github.com/shinofara/simple-go-web-app/service"
 	"github.com/shinofara/simple-go-web-app/context"
-	"github.com/shinofara/simple-go-web-app/entity"	
+	"github.com/shinofara/simple-go-web-app/entity"
+	"github.com/shinofara/simple-go-web-app/repository"
 	"github.com/gorilla/schema"
 	"net/http"
+	"fmt"
 )
 
 // User ユーザ情報
@@ -30,10 +32,24 @@ func Index(rw http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
 	logger := context.MustGetLogger(ctx)
+	sessionStore := context.MustGetSessionStore(ctx)
+
+	//session
+	login, err := repository.GetLoginSession(sessionStore)
+	if err != nil {
+		logger.Info(err.Error())
+	}
+	logger.Info(fmt.Sprintf("%+v", login))
+	
+	_, err = repository.CreateLoginSession(sessionStore)
+	if err != nil {
+		logger.Info(err.Error())
+	}
 
 	user := entity.NewUser(u.Name, "password")
 	
-	user, err = service.Register(ctx, user)
+	userService := service.NewUserService(logger)
+	user, err = userService.Register(ctx, user)
 
 	re := render.New(rw, r)
 	if err != nil {

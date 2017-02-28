@@ -1,49 +1,42 @@
 package service
 
 import (
-	"fmt"
 	"github.com/shinofara/simple-go-web-app/context"
 	"github.com/shinofara/simple-go-web-app/repository"
 	"github.com/shinofara/simple-go-web-app/entity"
 	"github.com/shinofara/simple-go-web-app/transfer"
+	"github.com/uber-go/zap"
 )
 
-// Register ユーザ登録手続きを行う
-func Register(ctx context.Context, user *entity.User) (*entity.User, error) {
-	db := context.MustGetDB(ctx, "default")
-	logger := context.MustGetLogger(ctx)
-	
-	//session sample
-	sessionStore := context.MustGetSessionStore(ctx)
-	login, err := repository.GetLoginSession(sessionStore)
-	if err == nil {
-		logger.Info(fmt.Sprintf("%+v", login))
-	}
+type UserService struct {
+	logger zap.Logger
+}
 
-	if err != nil {
-		logger.Info(err.Error())
+func NewUserService(l zap.Logger) *UserService {
+	return &UserService{
+		logger: l,
 	}
-	
-	_, err = repository.CreateLoginSession(sessionStore)
-	if err != nil {
-		logger.Info(err.Error())
-	}
+}
+
+// Register ユーザ登録手続きを行う
+func (us *UserService) Register(ctx context.Context, user *entity.User) (*entity.User, error) {
+	db := context.MustGetDB(ctx, "default")
 
 	//ここでentityと関連付けを行う
 	db.AddTableWithName(entity.User{}, "users").SetKeys(true, "ID")
 
-	err = db.CreateTablesIfNotExists()
+	err := db.CreateTablesIfNotExists()
 	if err != nil {
-		return	nil, err
+		return nil, err
 	}
 
 	err = repository.CreateUser(db, user)
-	if err != nil { 
-		return nil, err		
+	if err != nil {
+		return nil, err
 	}
 
 	if err := transfer.SendActivationEmail(ctx); err != nil {
-		logger.Error(err.Error())
+		us.logger.Error(err.Error())
 	}
 
 	return repository.GetUser(db)
