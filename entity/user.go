@@ -7,7 +7,7 @@ import "encoding/base64"
 type User struct {
 	ID int `db:"id, primarykey, autoincrement"`
 	Name string `db:"name"`
-	Pass string
+	Pass string `db:"-"`
 	EncryptPass string `db:"pass"`
 }
 
