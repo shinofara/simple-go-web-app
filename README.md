@@ -42,20 +42,23 @@ http://localhost:8080/
 
 # sub-package設計
 
-思考的にはDDDには寄せています
+思考的には完全ではないけどDDDよりの思考で設計
 http://qiita.com/haazime/items/6119097071149a362f7f
-違ったらPRください＞＜
+https://www.ogis-ri.co.jp/otc/hiroba/technical/DDDEssence/chap2.html#Repositories
+違ったらPRください
 
-| name       | 担当する世界                                                                      | その他                                                  |
-| ---------- | ----------------------------------------------------------------------------------| ------------------------------------------------------- |
-| handler    | 発生したHTTPリクエストに対して、パス毎の処理を定義する場所                        |                                                         |
-| service    | 目的毎の処理を各場所、主に`service`がrepositotyなど連絡を行い一つの処理を達成する | ユビキタス言語とすること（例: User.Register = 登録する) |
-| context    | リクエスト発生から返却までの間、維持したい情報を保持                              |                                                         |
-| repository | 各データストアとのやり取りを行い、適したentityを返却                              |                                                         |
-| entity     | データストアのデータ構成                                                          |                                                         |
-| middleware | middleware                                                                        |                                                         |
-| render     | HTTPレスポンスを返却する際に、htmlやjsonなどの描画を担当                          |                                                         |
-| transfer   | データの転送（メール、ファイルUPLOADなどなど）                                    |                                                         |
+| name        | 担当する世界                                                                      | その他                                                       |
+| ----------- | ----------------------------------------------------------------------------------| ------------------------------------------------------------ |
+| handler     | 発生したHTTPリクエストに対して、パス毎の処理を定義する場所                        |                                                              |
+| service     | 目的毎の処理を各場所、主に`service`がrepositotyなど連絡を行い一つの処理を達成する | ユビキタス言語とすること（例: User.Register = 登録する)      |
+| context     | リクエスト発生から返却までの間、維持したい情報を保持                              |                                                              |
+| repository  | 各データストアとのやり取りを行い、適したentityを返却                              |                                                              |
+| entity      | データストアのデータ構成                                                          | Identityを持っており値は変わっても同じものと扱う物。例えば人 |
+| valueObject | `entity` とは逆に「色」とか「量」とかの用に不変のオブジェクトを管理               | 現在は未使用                                                 |
+| middleware  | middleware                                                                        |                                                              |
+| render      | HTTPレスポンスを返却する際に、htmlやjsonなどの描画を担当                          |                                                              |
+| transfer    | データの転送（メール、ファイルUPLOADなどなど）                                    |                                                              |
+| public      | HTML/JS/CSSなど                                                                   |                                                              |
 
 # Contribution
 
