@@ -51,18 +51,22 @@ https://github.com/phpmentors-jp/phpmentors-example-campaign/tree/master/src/Exa
 | name        | 担当する世界                                                                      | その他                                                       |
 | ----------- | ----------------------------------------------------------------------------------| ------------------------------------------------------------ |
 | app         | アプリケーション層                                                                |                                                              |
-| app.controller     | 発生したHTTPリクエストに対して、パス毎の処理を定義する場所                        |                                                              |
-| app.render      | HTTPレスポンスを返却する際に、htmlやjsonなどの描画を担当                          |                                                              |
-| service     | 目的毎の処理を各場所、主に`service`がrepositotyなど連絡を行い一つの処理を達成する | ユビキタス言語とすること（例: User.Register = 登録する)      |
-| context     | リクエスト発生から返却までの間、維持したい情報を保持                              |                                                              |
-| repository  | 各データストアとのやり取りを行い、適したentityを返却                              |                                                              |
-| entity      | データストアのデータ構成                                                          | Identityを持っており値は変わっても同じものと扱う物。例えば人 |
-| valueObject | `entity` とは逆に「色」とか「量」とかの用に不変のオブジェクトを管理               | 現在は未使用                                                 |
-| middleware  | middleware                                                                        |                                                              |
+| app/controller     | 発生したHTTPリクエストに対して、パス毎の処理を定義する場所                        |                                                              |
+| app/render      | HTTPレスポンスを返却する際に、htmlやjsonなどの描画を担当                          |                                                              |
+| model       | ドメイン層（モデル層）                                                            |                                    |
+| model/service     | 目的毎の処理を各場所、主に`service`がrepositotyなど連絡を行い一つの処理を達成する | ユビキタス言語とすること（例: User.Register = 登録する)      |
 
-| transfer    | データの転送（メール、ファイルUPLOADなどなど）                                    |                                                              |
+| model/repository  | 各データストアとのやり取りを行い、適したentityを返却                              |                                                              |
+| model/entity      | データストアのデータ構成                                                          | Identityを持っており値は変わっても同じものと扱う物。例えば人 |
+| model/valueObject | `entity` とは逆に「色」とか「量」とかの用に不変のオブジェクトを管理               | 現在は未使用                                                 |
+| model/transfer    | データの転送（メール、ファイルUPLOADなどなど）                                    |                                                              |
+| middleware  | middleware                                                                        |                                                              |
+| context     | リクエスト発生から返却までの間、維持したい情報を保持                              |                                                              |
+
+
 | public      | HTML/JS/CSSなど                                                                   |                                                              |
 | resource    | viewで使うtemplateとか、scssとかそのままでは使えないものたち                      |                                    |
+| public      | 静的なファイルなど(css/js/html/etc....)                      |                                    |
 
 # Contribution
 
