@@ -5,7 +5,7 @@ import (
 	"github.com/shinofara/simple-go-web-app/service"
 	"github.com/shinofara/simple-go-web-app/context"
 	"github.com/shinofara/simple-go-web-app/model/entity"
-	"github.com/shinofara/simple-go-web-app/repository"
+	"github.com/shinofara/simple-go-web-app/model/repository"
 	"github.com/gorilla/schema"
 	"net/http"
 	"fmt"
