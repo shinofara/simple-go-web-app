@@ -3,7 +3,7 @@ package service
 import (
 	"github.com/shinofara/simple-go-web-app/context"
 	"github.com/shinofara/simple-go-web-app/repository"
-	"github.com/shinofara/simple-go-web-app/entity"
+	"github.com/shinofara/simple-go-web-app/model/entity"
 	"github.com/shinofara/simple-go-web-app/transfer"
 	"github.com/uber-go/zap"
 )

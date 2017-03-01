@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/shinofara/simple-go-web-app/entity"
+	"github.com/shinofara/simple-go-web-app/model/entity"
 	gorp "gopkg.in/gorp.v1"
 )
 

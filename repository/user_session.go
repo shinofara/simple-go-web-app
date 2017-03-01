@@ -5,7 +5,7 @@ import (
 	"time"
 	"encoding/gob"
 	"github.com/shinofara/simple-go-web-app/session"
-	"github.com/shinofara/simple-go-web-app/entity"
+	"github.com/shinofara/simple-go-web-app/model/entity"
 )
 
 // init gobに使用する構造体を登録
