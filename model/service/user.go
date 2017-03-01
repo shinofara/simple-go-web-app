@@ -8,10 +8,12 @@ import (
 	"github.com/uber-go/zap"
 )
 
+// UserService ユーザたいする振る舞い
 type UserService struct {
 	logger zap.Logger
 }
 
+// NewUserService creates a UserService
 func NewUserService(l zap.Logger) *UserService {
 	return &UserService{
 		logger: l,
