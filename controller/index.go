@@ -1,4 +1,4 @@
-package handler
+package controller
 
 import (
 	"github.com/shinofara/simple-go-web-app/render"

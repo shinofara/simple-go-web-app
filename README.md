@@ -45,6 +45,7 @@ http://localhost:8080/
 思考的には完全ではないけどDDDよりの思考で設計
 http://qiita.com/haazime/items/6119097071149a362f7f
 https://www.ogis-ri.co.jp/otc/hiroba/technical/DDDEssence/chap2.html#Repositories
+https://github.com/phpmentors-jp/phpmentors-example-campaign/tree/master/src/Example/CampaignBundle
 違ったらPRください
 
 | name        | 担当する世界                                                                      | その他                                                       |

@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"github.com/shinofara/simple-go-web-app/application"
 	"github.com/shinofara/simple-go-web-app/config"
-	"github.com/shinofara/simple-go-web-app/handler"
-	"github.com/shinofara/simple-go-web-app/middleware"	
+	"github.com/shinofara/simple-go-web-app/controller"
+	"github.com/shinofara/simple-go-web-app/middleware"
 )
 
 // main メイン処理
@@ -29,9 +29,9 @@ func main() {
 
 	//アプリケーションの管理
 	app := application.New()
-	app.Register("get", "/", handler.Index, []string{"default"})
-	app.Register("get", "/example", handler.Example, nil)
-	app.Register("get", "/panic", handler.Panic, nil)		
+	app.Register("get", "/", controller.Index, []string{"default"})
+	app.Register("get", "/example", controller.Example, nil)
+	app.Register("get", "/panic", controller.Panic, nil)
 	
 	// middlewareを登録
 
