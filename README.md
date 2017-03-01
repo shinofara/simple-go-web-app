@@ -50,7 +50,7 @@ https://github.com/phpmentors-jp/phpmentors-example-campaign/tree/master/src/Exa
 
 | name        | 担当する世界                                                                      | その他                                                       |
 | ----------- | ----------------------------------------------------------------------------------| ------------------------------------------------------------ |
-| handler     | 発生したHTTPリクエストに対して、パス毎の処理を定義する場所                        |                                                              |
+| controller     | 発生したHTTPリクエストに対して、パス毎の処理を定義する場所                        |                                                              |
 | service     | 目的毎の処理を各場所、主に`service`がrepositotyなど連絡を行い一つの処理を達成する | ユビキタス言語とすること（例: User.Register = 登録する)      |
 | context     | リクエスト発生から返却までの間、維持したい情報を保持                              |                                                              |
 | repository  | 各データストアとのやり取りを行い、適したentityを返却                              |                                                              |
@@ -60,6 +60,7 @@ https://github.com/phpmentors-jp/phpmentors-example-campaign/tree/master/src/Exa
 | render      | HTTPレスポンスを返却する際に、htmlやjsonなどの描画を担当                          |                                                              |
 | transfer    | データの転送（メール、ファイルUPLOADなどなど）                                    |                                                              |
 | public      | HTML/JS/CSSなど                                                                   |                                                              |
+| resource    | viewで使うtemplateとか、scssとかそのままでは使えないものたち                      |                                    |
 
 # Contribution
 
