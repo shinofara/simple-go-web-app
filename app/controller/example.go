@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/shinofara/simple-go-web-app/render"
+	"github.com/shinofara/simple-go-web-app/app/render"
 	"net/http"
 )
 
