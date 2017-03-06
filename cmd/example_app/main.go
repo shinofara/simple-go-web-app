@@ -14,9 +14,9 @@ import (
 // main メイン処理
 func main() {
 	 var configPath string
-	flag.StringVar(&configPath, "conf", "", "path to config yaml path")	
+	flag.StringVar(&configPath, "conf", "", "path to config yaml path")
 	flag.Parse()
-	
+
 	cfg, err := config.Load(configPath)
 	if err != nil {
 		panic(err)
@@ -32,18 +32,18 @@ func main() {
 	app.Register("get", "/", controller.Index, []string{"default"})
 	app.Register("get", "/example", controller.Example, nil)
 	app.Register("get", "/panic", controller.Panic, nil)
-	
+
 	// middlewareを登録
 
 	//contextは全体に関わるので一番最初に設定
 	app.Router.Use(middleware.ContextMiddleware)
-	
+
 	//Loggerは初期化してから追加
 	l := middleware.NewLoggerMiddleware()
 	app.Router.Use(l.LoggerMiddleware)
 
 	//Loggerは初期化してから追加
-	app.Router.Use(middleware.SessionMiddleware("secret"))
+	app.Router.Use(middleware.SessionMiddleware(cfg.Session.Salt))
 
 	//SampleとRenderは初期化無しで追加
 	app.Router.Use(middleware.DBMiddleware(app.Configs, dbCfgs))
