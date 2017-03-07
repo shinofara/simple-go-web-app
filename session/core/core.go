@@ -1,5 +1,5 @@
-// Package session セッション管理
-package session
+// Package core セッション管理
+package core
 
 import (
 	"github.com/gorilla/sessions"

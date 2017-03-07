@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"net/http"
-	"github.com/shinofara/simple-go-web-app/session"
+	"github.com/shinofara/simple-go-web-app/session/core"
 	"github.com/shinofara/simple-go-web-app/context"
 )
 
@@ -10,7 +10,7 @@ import (
 func SessionMiddleware(secret string) func (next http.Handler) http.Handler {
 	return func (next http.Handler) http.Handler  {
 		fn := func(w http.ResponseWriter, r *http.Request) {
-			store := session.NewSessionStore(w, r, secret)
+			store := core.NewSessionStore(w, r, secret)
 			ctx := context.SetSessionStore(r.Context(), store)
 			r = r.WithContext(ctx)
 			

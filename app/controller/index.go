@@ -1,11 +1,11 @@
 package controller
 
 import (
-	"github.com/shinofara/simple-go-web-app/context"	
+	"github.com/shinofara/simple-go-web-app/context"
 	"github.com/shinofara/simple-go-web-app/app/render"
 	"github.com/shinofara/simple-go-web-app/model/service"
 	"github.com/shinofara/simple-go-web-app/model/entity"
-	"github.com/shinofara/simple-go-web-app/model/repository"
+	"github.com/shinofara/simple-go-web-app/session"
 	"github.com/gorilla/schema"
 	"net/http"
 	"fmt"
@@ -35,13 +35,13 @@ func Index(rw http.ResponseWriter, r *http.Request) {
 	sessionStore := context.MustGetSessionStore(ctx)
 
 	//session
-	login, err := repository.GetLoginSession(sessionStore)
+	login, err := session.GetLoginSession(sessionStore)
 	if err != nil {
 		logger.Info(err.Error())
 	}
 	logger.Info(fmt.Sprintf("%+v", login))
-	
-	_, err = repository.CreateLoginSession(sessionStore)
+
+	_, err = session.CreateLoginSession(sessionStore)
 	if err != nil {
 		logger.Info(err.Error())
 	}

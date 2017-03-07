@@ -1,7 +1,7 @@
 package context
 
 import (
-	"github.com/shinofara/simple-go-web-app/session"		
+	"github.com/shinofara/simple-go-web-app/session/core"
 	"fmt"
 	"context"
 )
@@ -10,13 +10,13 @@ import (
 const CtxKeySession = contextKey("SESSION")
 
 // SetSessionStore sets sesion store to context.
-func SetSessionStore(ctx context.Context, store *session.Store) context.Context {
+func SetSessionStore(ctx context.Context, store *core.Store) context.Context {
 	return context.WithValue(ctx, CtxKeySession, store)
 }
 
 // GetSessionStore sets sesion store from context.
-func GetSessionStore(ctx context.Context) (*session.Store, error) {
-	sess, ok := ctx.Value(CtxKeySession).(*session.Store)
+func GetSessionStore(ctx context.Context) (*core.Store, error) {
+	sess, ok := ctx.Value(CtxKeySession).(*core.Store)
 	if ok {
 		return sess, nil
 	}
@@ -25,7 +25,7 @@ func GetSessionStore(ctx context.Context) (*session.Store, error) {
 }
 
 // MustGetSessionStore 確実にsession storeをsyutoku
-func MustGetSessionStore(ctx context.Context) *session.Store {
+func MustGetSessionStore(ctx context.Context) *core.Store {
 	sess, err := GetSessionStore(ctx)
 	if err != nil {
 		panic(err)

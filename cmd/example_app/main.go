@@ -43,7 +43,7 @@ func main() {
 	app.Router.Use(l.LoggerMiddleware)
 
 	//Loggerは初期化してから追加
-	app.Router.Use(middleware.SessionMiddleware(cfg.Session.Salt))
+	app.Router.Use(middleware.SessionMiddleware("salt"))
 
 	//SampleとRenderは初期化無しで追加
 	app.Router.Use(middleware.DBMiddleware(app.Configs, dbCfgs))
