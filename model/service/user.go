@@ -5,27 +5,20 @@ import (
 	"github.com/shinofara/simple-go-web-app/model/entity"
 	"github.com/shinofara/simple-go-web-app/model/transfer"
 	"github.com/shinofara/simple-go-web-app/model/repository"
-	"github.com/uber-go/zap"
 )
 
 // UserService ユーザたいする振る舞い
-type UserService struct {
-	logger zap.Logger
-}
+type UserService struct {}
 
 // NewUserService creates a UserService
-func NewUserService(l zap.Logger) *UserService {
-	return &UserService{
-		logger: l,
-	}
+func NewUserService() *UserService {
+	return &UserService{}
 }
 
 // Register ユーザ登録手続きを行う
 func (us *UserService) Register(ctx context.Context, user *entity.User) (*entity.User, error) {
 	db := context.MustGetDB(ctx, "default")
-
-	//ここでentityと関連付けを行う
-	db.AddTableWithName(entity.User{}, "users").SetKeys(true, "ID")
+	logger := context.MustGetLogger(ctx)	
 
 	err := db.CreateTablesIfNotExists()
 	if err != nil {
@@ -38,8 +31,7 @@ func (us *UserService) Register(ctx context.Context, user *entity.User) (*entity
 	}
 
 	if err := transfer.SendActivationEmail(ctx); err != nil {
-		us.logger.Error(err.Error())
+		logger.Error(err.Error())
 	}
-
 	return repository.GetUser(db)
 }

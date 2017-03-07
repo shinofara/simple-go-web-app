@@ -1,19 +1,19 @@
 package context
 
 import (
-	"github.com/uber-go/zap"
+	"go.uber.org/zap"
 	"fmt"
 	"context"
 )
 
 // SetLogger sets logger to context.
-func SetLogger(ctx context.Context, logger zap.Logger) context.Context {
+func SetLogger(ctx context.Context, logger *zap.SugaredLogger) context.Context {
 	return context.WithValue(ctx, contextKey("LOGGER"), logger)
 }
 
 // GetLogger sets logger from context.
-func GetLogger(ctx context.Context) (zap.Logger, error) {
-	l, ok := ctx.Value(contextKey("LOGGER")).(zap.Logger)
+func GetLogger(ctx context.Context) (*zap.SugaredLogger, error) {
+	l, ok := ctx.Value(contextKey("LOGGER")).(*zap.SugaredLogger)
 	if ok {
 		return l, nil
 	}
@@ -22,7 +22,7 @@ func GetLogger(ctx context.Context) (zap.Logger, error) {
 }
 
 // MustGetLogger 確実にLoggerを取得
-func MustGetLogger(ctx context.Context) zap.Logger {
+func MustGetLogger(ctx context.Context) *zap.SugaredLogger {
 	l, err := GetLogger(ctx)
 	if err != nil {
 		panic(err)

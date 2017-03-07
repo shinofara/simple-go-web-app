@@ -32,6 +32,9 @@ func Index(rw http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
 	logger := context.MustGetLogger(ctx)
+	logger.Infow("Failed to fetch URL.",
+		"key", "value",
+	)
 	sessionStore := context.MustGetSessionStore(ctx)
 
 	//session
@@ -48,7 +51,7 @@ func Index(rw http.ResponseWriter, r *http.Request) {
 
 	user := entity.NewUser(u.Name, "password")
 	
-	userService := service.NewUserService(logger)
+	userService := service.NewUserService()
 	user, err = userService.Register(ctx, user)
 
 	re := render.New(rw, r)

@@ -5,6 +5,7 @@ import (
 	"github.com/shinofara/simple-go-web-app/application"
 	"github.com/shinofara/simple-go-web-app/context"
 	"github.com/shinofara/simple-go-web-app/config"
+	"github.com/shinofara/simple-go-web-app/model/entity"	
 	"database/sql"
 
 	// MySQL driver
@@ -39,6 +40,8 @@ func dbMiddleware(next http.Handler, appCfgs application.Configs, dataSourceName
 				db, _ := sql.Open("mysql", dataSourceNames[dbCfgName])
 				dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{"InnoDB", "UTF8"}}
 				defer dbmap.Db.Close()
+
+				associateTable(dbmap)
 				
 				ctx = context.SetDB(ctx, dbCfgName, dbmap)
 			}
@@ -58,4 +61,8 @@ func convertDBConfigTable(dbCfgs *config.DBConfigs) map[string]string {
 	}
 
 	return dataSourceNames
+}
+
+func associateTable(db *gorp.DbMap) {
+	db.AddTableWithName(entity.User{}, "users").SetKeys(true, "ID")
 }

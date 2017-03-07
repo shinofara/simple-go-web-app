@@ -1,5 +1,5 @@
-hash: b251b389b1060f6f70e1f6293bb7ad542019c10f78bc7c7a2d9b010f2ba1d866
-updated: 2017-02-25T19:25:31.752827+09:00
+hash: 0202bf9fff897c844913ea0c155312612098dc5bf62c26e9eef37e0273510de6
+updated: 2017-03-07T23:51:21.14138799+09:00
 imports:
 - name: github.com/go-sql-driver/mysql
   version: a0583e0143b1624142adab07e0e97fe106d99561
@@ -13,16 +13,20 @@ imports:
   version: ca9ada44574153444b00d3fd9c8559e4cc95f896
 - name: github.com/pressly/chi
   version: 54f435d539226571eab1987ed862b1c0fdfdc892
-- name: github.com/uber-go/atomic
-  version: 0c9e689d64f004564b79d9a663634756df322902
-- name: github.com/uber-go/zap
-  version: a5783ee4b216a927da8f839c45cfbf9d694e1467
 - name: github.com/unrolled/render
   version: 50716a0a853771bb36bfce61a45cdefdb98c2e6e
+- name: go.uber.org/atomic
+  version: 0c9e689d64f004564b79d9a663634756df322902
+- name: go.uber.org/zap
+  version: a03b90bc236f3def382f17743518889a31f8187c
+  subpackages:
+  - buffer
+  - internal/bufferpool
+  - internal/exit
+  - internal/multierror
+  - zapcore
 - name: gopkg.in/gorp.v1
   version: 4deece61034873cb5b5416e81abe4cea7bd0da72
 - name: gopkg.in/yaml.v2
   version: a3f3340b5840cee44f372bddb5880fcbc419b46a
-testImports:
-- name: github.com/urfave/negroni
-  version: fde5e16d32adc7ad637e9cd9ad21d4ebc6192535
+testImports: []

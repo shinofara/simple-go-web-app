@@ -5,7 +5,7 @@ import (
 	"github.com/unrolled/render"
 	"github.com/shinofara/simple-go-web-app/context"
 	"net/http"
-	"github.com/uber-go/zap"
+	"go.uber.org/zap"
 )
 
 // Render 表示に必要な情報を管理
@@ -13,7 +13,7 @@ type Render struct {
 	w http.ResponseWriter
 	r *http.Request
 	render *render.Render
-	logger zap.Logger
+	logger *zap.SugaredLogger
 }
 
 // New creates a Render
