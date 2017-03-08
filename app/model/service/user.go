@@ -1,10 +1,10 @@
 package service
 
 import (
+	"github.com/shinofara/simple-go-web-app/app/model/entity"
+	"github.com/shinofara/simple-go-web-app/app/model/transfer"
+	"github.com/shinofara/simple-go-web-app/app/model/repository"
 	"github.com/shinofara/simple-go-web-app/http/context"
-	"github.com/shinofara/simple-go-web-app/model/entity"
-	"github.com/shinofara/simple-go-web-app/model/transfer"
-	"github.com/shinofara/simple-go-web-app/model/repository"
 )
 
 // UserService ユーザたいする振る舞い

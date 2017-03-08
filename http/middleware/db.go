@@ -5,7 +5,7 @@ import (
 	"github.com/shinofara/simple-go-web-app/application"
 	"github.com/shinofara/simple-go-web-app/http/context"
 	"github.com/shinofara/simple-go-web-app/config"
-	"github.com/shinofara/simple-go-web-app/model/entity"
+	"github.com/shinofara/simple-go-web-app/app/model/entity"
 	"database/sql"
 
 	// MySQL driver
@@ -17,7 +17,7 @@ import (
 // DBMiddleware stores DB connector to context.
 func DBMiddleware(appCfgs application.Configs, dbCfgs *config.DBConfigs) func(next http.Handler) http.Handler {
 	dataSourceNames := convertDBConfigTable(dbCfgs)
-	
+
 	return func(next http.Handler) http.Handler {
 
 		fn := dbMiddleware(next, appCfgs, dataSourceNames)
@@ -42,7 +42,7 @@ func dbMiddleware(next http.Handler, appCfgs application.Configs, dataSourceName
 				defer dbmap.Db.Close()
 
 				associateTable(dbmap)
-				
+
 				ctx = context.SetDB(ctx, dbCfgName, dbmap)
 			}
 		}
