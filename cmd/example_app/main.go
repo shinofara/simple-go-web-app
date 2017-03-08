@@ -29,8 +29,7 @@ func main() {
 
 	//アプリケーションの管理
 	app := application.New()
-	app.Register("get", "/", controller.Index, []string{"default"})
-	app.Register("get", "/example", controller.Example, nil)
+	app.Register("get", "/", controller.Example, []string{"default"})
 	app.Register("get", "/panic", controller.Panic, nil)
 
 	// middlewareを登録
