@@ -20,44 +20,50 @@ $ make run
 Open this url in your browser.
 http://localhost:8080/
 
-## Check HTTP2
-
-```
-$ go run /usr/local/go/src/crypto/tls/generate_cert.go --host localhost
-2017/01/17 18:08:33 written cert.pem
-2017/01/17 18:08:33 written key.pem
-```
-
-
 # Useing Pacages
 
 | 役割       | パッケージ                           |
 | ---------- | ------------------------------------ |
-| router     | github.com/julienschmidt/httprouter  |
-| middleware | github.com/urfave/negroni            |
-| render     |  github.com/unrolled/render          |
+| router     | github.com/pressly/chi               |
+| middleware | github.com/pressly/chi               |
+| render     | github.com/unrolled/render           |
 | logger     | github.com/uber-go/zap               |
 | gorp       | https://github.com/go-gorp/gorp      |
 
+# レイヤー設計
 
+| レイヤ                    | 別名                 | 説明                                                     | 備考                |
+| ------------------------- | -------------------- | -------------------------------------------------------- | ------------------- |
+| ユーザインターフェース層  | プレゼンテーション層 | ユーザが触る場所                                         | HTML/JS/CSS         |
+| アプリケーション層        | -                    | Requestを受けて下位層の結果をviewなどを使ってユーザに返す| Application Service |
+| ドメイン層                | モデル層             | ビジネスロジック                                         | -                   |
+| インフラストラクチャ層    | -                    | 上位レイヤを支えるインフラとの橋渡し                     | ORマッパなど        |
 
 
 # sub-package設計
 
-思考的にはDDDには寄せています
-http://qiita.com/haazime/items/6119097071149a362f7f
-違ったらPRください＞＜
+完全なDDDとまでは行かないまでも、modelはある程度近しい思考で分離
+http://qiita.com/haazime/items/6119097071149a362f7f  
+https://www.ogis-ri.co.jp/otc/hiroba/technical/DDDEssence/chap2.html#Repositories  
+https://github.com/phpmentors-jp/phpmentors-example-campaign/tree/master/src/Example/CampaignBundle  
+違ったらPRください
 
-| name       | 担当する世界                                                                      | その他                                                  |
-| ---------- | ----------------------------------------------------------------------------------| ------------------------------------------------------- |
-| handler    | 発生したHTTPリクエストに対して、パス毎の処理を定義する場所                        |                                                         |
-| service    | 目的毎の処理を各場所、主に`service`がrepositotyなど連絡を行い一つの処理を達成する | ユビキタス言語とすること（例: User.Register = 登録する) |
-| context    | リクエスト発生から返却までの間、維持したい情報を保持                              |                                                         |
-| repository | 各データストアとのやり取りを行い、適したentityを返却                              |                                                         |
-| entity     | データストアのデータ構成                                                          |                                                         |
-| middleware | middleware                                                                        |                                                         |
-| render     | HTTPレスポンスを返却する際に、htmlやjsonなどの描画を担当                          |                                                         |
-| transfer   | データの転送（メール、ファイルUPLOADなどなど）                                    |                                                         |
+| name               | 担当する世界                                                                     | その他                                                      |
+| ----------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| app               | アプリケーション層                                                                |                                                              |
+| app/controller    | 発生したHTTPリクエストに対して、パス毎の処理を定義する場所                        |                                                              |
+| app/render        | HTTPレスポンスを返却する際に、htmlやjsonなどの描画を担当                          |                                                              |
+| model             | ドメイン層（モデル層）                                                            |                                                              |
+| model/service     | 目的毎の処理を各場所、主に`service`がrepositotyなど連絡を行い一つの処理を達成する | ユビキタス言語とすること（例: User.Register = 登録する)      |
+| model/repository  | 各データストアとのやり取りを行い、適したentityを返却                              |                                                              |
+| model/entity      | データストアのデータ構成                                                          | Identityを持っており値は変わっても同じものと扱う物。例えば人 |
+| model/valueObject | `entity` とは逆に「色」とか「量」とかの用に不変のオブジェクトを管理               | 現在は未使用                                                 |
+| model/transfer    | データの転送（メール、ファイルUPLOADなどなど）                                    |                                                              |
+| middleware        | middleware                                                                        |                                                              |
+| context           | リクエスト発生から返却までの間、維持したい情報を保持                              |                                                              |
+| public            | HTML/JS/CSSなど                                                                   |                                                              |
+| resource          | viewで使うtemplateとか、scssとかそのままでは使えないものたち                      |                                                              |
+| public            | 静的なファイルなど(css/js/html/etc....)                                           |                                                              |
 
 # Contribution
 

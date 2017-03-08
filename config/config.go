@@ -15,6 +15,7 @@ type Config struct {
 	HTTPPort string `yaml:"http_port"`
 	DatabaseYmlPath string `yaml:"database_yml_path"`
 	SMTP *SMTP `yaml:"smtp"`
+	Session *Session `yaml:"session"`
 }
 
 // Load yamlから設定を読み込む

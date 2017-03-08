@@ -17,6 +17,9 @@ func TestLoad(t *testing.T) {
 			Host: "localhost",
 			Port: 1025,
 		},
+		Session: &Session{
+			Salt: "xxxxx",
+		},
 	}
 
 	if !reflect.DeepEqual(expected, cfg) {
@@ -35,6 +38,9 @@ func TestLoadGlobalVar(t *testing.T) {
 		SMTP: &SMTP{
 			Host: "localhost",
 			Port: 1025,
+		},
+		Session: &Session{
+			Salt: "xxxxx",
 		},
 	}
 

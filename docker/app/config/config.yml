@@ -1,8 +1,0 @@
-cert_file_path: /config/localhost.crt
-key_file_path: /config/localhost.pem
-http_port: 8080
-database_yml_path: /config/database.yml
-
-smtp:
-  host: smtp
-  port: 1025
