@@ -5,7 +5,7 @@ import (
 	"github.com/shinofara/simple-go-web-app/application"
 	"github.com/shinofara/simple-go-web-app/http/context"
 	"github.com/shinofara/simple-go-web-app/config"
-	"github.com/shinofara/simple-go-web-app/app/model/entity"
+	"github.com/shinofara/simple-go-web-app/model/entity"
 	"database/sql"
 
 	// MySQL driver
