@@ -2,9 +2,9 @@ package controller
 
 import (
 	"fmt"
-	"github.com/shinofara/simple-go-web-app/app/render"
-	"github.com/shinofara/simple-go-web-app/app/model/entity"
-	"github.com/shinofara/simple-go-web-app/app/model/service"
+	"github.com/shinofara/simple-go-web-app/render"
+	"github.com/shinofara/simple-go-web-app/model/entity"
+	"github.com/shinofara/simple-go-web-app/model/service"
 	"github.com/shinofara/simple-go-web-app/http/context"
 	"github.com/shinofara/simple-go-web-app/http/request"
 	"github.com/shinofara/simple-go-web-app/http/session"
