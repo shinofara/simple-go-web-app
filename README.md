@@ -42,7 +42,7 @@ http://localhost:8080/
 
 # sub-package設計
 
-思考的には完全ではないけどDDDよりの思考で設計  
+完全なDDDとまでは行かないまでも、modelはある程度近しい思考で分離
 http://qiita.com/haazime/items/6119097071149a362f7f  
 https://www.ogis-ri.co.jp/otc/hiroba/technical/DDDEssence/chap2.html#Repositories  
 https://github.com/phpmentors-jp/phpmentors-example-campaign/tree/master/src/Example/CampaignBundle  
