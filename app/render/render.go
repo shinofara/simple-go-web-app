@@ -3,7 +3,7 @@ package render
 
 import (
 	"github.com/unrolled/render"
-	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/http/context"
 	"net/http"
 	"go.uber.org/zap"
 )

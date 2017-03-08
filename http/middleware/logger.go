@@ -3,7 +3,7 @@ package middleware
 import (
 	"net/http"
 	"go.uber.org/zap"
-	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/http/context"
 )
 
 // LoggerMiddleware loggerをwrap

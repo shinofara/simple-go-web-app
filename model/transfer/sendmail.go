@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/smtp"
 	"github.com/shinofara/simple-go-web-app/config"
-	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/http/context"
 )
 
 // Mailer メール送信に関わる処理を定義

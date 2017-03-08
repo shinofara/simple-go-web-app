@@ -3,8 +3,8 @@ package session
 import (
 	"time"
 	"fmt"
-	"encoding/gob"	
-	"github.com/shinofara/simple-go-web-app/session/core"
+	"encoding/gob"
+	"github.com/shinofara/simple-go-web-app/http/session/core"
 )
 
 const (

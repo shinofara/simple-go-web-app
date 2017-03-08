@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/application"
-	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/http/context"
 )
 
 func TestDBMiddleware(t *testing.T) {

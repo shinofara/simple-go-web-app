@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/http/context"
 	"github.com/shinofara/simple-go-web-app/model/entity"
 	"github.com/shinofara/simple-go-web-app/model/transfer"
 	"github.com/shinofara/simple-go-web-app/model/repository"
@@ -18,7 +18,7 @@ func NewUserService() *UserService {
 // Register ユーザ登録手続きを行う
 func (us *UserService) Register(ctx context.Context, user *entity.User) (*entity.User, error) {
 	db := context.MustGetDB(ctx, "default")
-	logger := context.MustGetLogger(ctx)	
+	logger := context.MustGetLogger(ctx)
 
 	err := db.CreateTablesIfNotExists()
 	if err != nil {

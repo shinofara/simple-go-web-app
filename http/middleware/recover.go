@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/http/context"
 	"runtime/debug"
 	"net/http"
 	"fmt"

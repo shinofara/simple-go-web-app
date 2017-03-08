@@ -3,13 +3,13 @@ package middleware
 import (
 	"net/http"
 	"github.com/shinofara/simple-go-web-app/application"
-	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/http/context"
 	"github.com/shinofara/simple-go-web-app/config"
-	"github.com/shinofara/simple-go-web-app/model/entity"	
+	"github.com/shinofara/simple-go-web-app/model/entity"
 	"database/sql"
 
 	// MySQL driver
-	_ "github.com/go-sql-driver/mysql"	
+	_ "github.com/go-sql-driver/mysql"
 	gorp	"gopkg.in/gorp.v1"
 	"fmt"
 )

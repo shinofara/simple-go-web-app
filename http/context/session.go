@@ -1,7 +1,7 @@
 package context
 
 import (
-	"github.com/shinofara/simple-go-web-app/session/core"
+	"github.com/shinofara/simple-go-web-app/http/session/core"
 	"fmt"
 	"context"
 )

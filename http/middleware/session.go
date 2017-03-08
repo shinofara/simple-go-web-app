@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"net/http"
-	"github.com/shinofara/simple-go-web-app/session/core"
-	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/http/session/core"
+	"github.com/shinofara/simple-go-web-app/http/context"
 )
 
 // SessionMiddleware セッション管理を登録

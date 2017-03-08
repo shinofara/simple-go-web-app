@@ -1,7 +1,7 @@
 package transfer
 
 import (
-	"github.com/shinofara/simple-go-web-app/context"
+	"github.com/shinofara/simple-go-web-app/http/context"
 )
 
 // SendActivationEmail アクティベーション要求メールを送信
