@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"net/http"
-	"github.com/shinofara/simple-go-web-app/application"
+	"github.com/shinofara/simple-go-web-app/http/router"
 	"github.com/shinofara/simple-go-web-app/http/context"
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/model/entity"
@@ -15,7 +15,7 @@ import (
 )
 
 // DBMiddleware stores DB connector to context.
-func DBMiddleware(appCfgs application.Configs, dbCfgs *config.DBConfigs) func(next http.Handler) http.Handler {
+func DBMiddleware(appCfgs router.Configs, dbCfgs *config.DBConfigs) func(next http.Handler) http.Handler {
 	dataSourceNames := convertDBConfigTable(dbCfgs)
 
 	return func(next http.Handler) http.Handler {
@@ -26,7 +26,7 @@ func DBMiddleware(appCfgs application.Configs, dbCfgs *config.DBConfigs) func(ne
 }
 
 // dbMiddleware http.Handler
-func dbMiddleware(next http.Handler, appCfgs application.Configs, dataSourceNames map[string]string) func(rw http.ResponseWriter, r *http.Request) {
+func dbMiddleware(next http.Handler, appCfgs router.Configs, dataSourceNames map[string]string) func(rw http.ResponseWriter, r *http.Request) {
 		return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 
