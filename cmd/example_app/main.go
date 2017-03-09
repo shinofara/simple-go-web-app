@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"github.com/shinofara/simple-go-web-app/router"
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/controller"
+	"github.com/shinofara/simple-go-web-app/http/router"
 	"github.com/shinofara/simple-go-web-app/http/middleware"
 )
 

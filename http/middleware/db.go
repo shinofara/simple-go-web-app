@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"net/http"
-	"github.com/shinofara/simple-go-web-app/router"
+	"github.com/shinofara/simple-go-web-app/http/router"
 	"github.com/shinofara/simple-go-web-app/http/context"
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/model/entity"

@@ -6,13 +6,13 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"github.com/shinofara/simple-go-web-app/config"
-	"github.com/shinofara/simple-go-web-app/application"
+	"github.com/shinofara/simple-go-web-app/http/router"
 	"github.com/shinofara/simple-go-web-app/http/context"
 )
 
 func TestDBMiddleware(t *testing.T) {
-	appCfg := map[string]*application.Config{
-		"get": &application.Config{
+	appCfg := map[string]*router.Config{
+		"get": &router.Config{
 			Key: "get",
 			Databases: []string{"default", "read"},
 		},
