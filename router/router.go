@@ -1,5 +1,5 @@
-// Package application アプリケーション内のroute毎に必要な設定などを行う
-package application
+// Package router アプリケーション内のroute毎に必要な設定などを行う
+package router
 
 //applicationの全体設定に必要な定義を行う
 //route設定と、route毎のDB設定管理を担う
@@ -12,8 +12,8 @@ import (
 )
 
 // Application routeとそれに対応する設定等を管理
-type Application struct {
-	Router *chi.Mux
+type Router struct {
+	Mux *chi.Mux
 	tree map[string]*Method
 	Configs map[string]*Config
 }
@@ -34,16 +34,16 @@ type Config struct {
 }
 
 // New creates a Application.
-func New() *Application {
-	return &Application{
-		Router: chi.NewRouter(),
+func New() *Router {
+	return &Router{
+		Mux: chi.NewRouter(),
 		tree: make(map[string]*Method),
 		Configs: make(map[string]*Config),
 	}
 }
 
 // Register method毎のpathに対応したhandlerを登録
-func (a *Application) Register(method, path string, handler http.HandlerFunc, databases []string) {
+func (a *Router) Register(method, path string, handler http.HandlerFunc, databases []string) {
 	if a.tree[method] == nil {
 		a.tree[method] = new(Method)
 	}
@@ -58,12 +58,23 @@ func (a *Application) Register(method, path string, handler http.HandlerFunc, da
 	a.Configs[key] = &Config{Key: key, Databases: databases}
 }
 
+
+
+func (r *Router) Middleware(f func(http.Handler) http.Handler) {
+	r.Mux.Use(f)
+}
+
+func (r *Router) Router() *chi.Mux {
+	r.expand()
+	return r.Mux
+}
+
 // Expand muxに保持しているpathを展開
-func (a *Application) Expand(mx *chi.Mux) {
+func (a *Router) expand() {
 	for method, paths := range a.tree {
 		for path, handler := range paths.path {
 			if method == "get" {
-				mx.Get(path, handler)
+				a.Mux.Get(path, handler)
 			}
 		}
 	}
