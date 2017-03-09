@@ -29,16 +29,15 @@ func Example(rw http.ResponseWriter, r *http.Request) {
 	logger.Infow("Failed to fetch URL.",
 		"key", "value",
 	)
-	sessionStore := context.MustGetSessionStore(ctx)
 
 	//session
-	login, err := session.GetLoginSession(sessionStore)
+	login, err := session.GetLoginSession(r)
 	if err != nil {
 		logger.Info(err.Error())
 	}
 	logger.Info(fmt.Sprintf("%+v", login))
 
-	_, err = session.CreateLoginSession(sessionStore)
+	_, err = session.CreateLoginSession(r)
 	if err != nil {
 		logger.Info(err.Error())
 	}

@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"net/http"
-	"github.com/shinofara/simple-go-web-app/http/router"
 	"github.com/shinofara/simple-go-web-app/http/context"
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/model/entity"
@@ -15,40 +14,34 @@ import (
 )
 
 // DBMiddleware stores DB connector to context.
-func DBMiddleware(appCfgs router.Configs, dbCfgs *config.DBConfigs) func(next http.Handler) http.Handler {
+func DBMiddleware(dbCfgs *config.DBConfigs) func(next http.Handler) http.Handler {
 	dataSourceNames := convertDBConfigTable(dbCfgs)
 
 	return func(next http.Handler) http.Handler {
 
-		fn := dbMiddleware(next, appCfgs, dataSourceNames)
+		fn := dbMiddleware(next, dataSourceNames)
 		return http.HandlerFunc(fn)
 	}
 }
 
 // dbMiddleware http.Handler
-func dbMiddleware(next http.Handler, appCfgs router.Configs, dataSourceNames map[string]string) func(rw http.ResponseWriter, r *http.Request) {
+func dbMiddleware(next http.Handler, dataSourceNames map[string]string) func(rw http.ResponseWriter, r *http.Request) {
 		return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 
-		path := r.URL.Path
-		//method := r.Method
-
-		appCfg := appCfgs.GetPathConfig(path)
-
-		if appCfg != nil {
-			for _, dbCfgName := range appCfg.Databases {
-				db, _ := sql.Open("mysql", dataSourceNames[dbCfgName])
-				dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{"InnoDB", "UTF8"}}
-				defer dbmap.Db.Close()
-
-				associateTable(dbmap)
-
-				ctx = context.SetDB(ctx, dbCfgName, dbmap)
-			}
+		t := "master"
+		if r.Method == http.MethodGet {
+			t = "slave"
 		}
 
-			r = r.WithContext(ctx)
-			next.ServeHTTP(w, r)
+		db, _ := sql.Open("mysql", dataSourceNames[t])
+		dbmap := &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{"InnoDB", "UTF8"}}
+		defer dbmap.Db.Close()
+		associateTable(dbmap)
+		ctx = context.SetDB(ctx, dbmap)
+
+		r = r.WithContext(ctx)
+		next.ServeHTTP(w, r)
 	}
 }
 

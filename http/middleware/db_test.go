@@ -6,18 +6,10 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"github.com/shinofara/simple-go-web-app/config"
-	"github.com/shinofara/simple-go-web-app/http/router"
 	"github.com/shinofara/simple-go-web-app/http/context"
 )
 
 func TestDBMiddleware(t *testing.T) {
-	appCfg := map[string]*router.Config{
-		"get": &router.Config{
-			Key: "get",
-			Databases: []string{"default", "read"},
-		},
-	}
-
 	dataSourceNames := map[string]string{
 		"default": "test",
 		"read": "read",
@@ -31,16 +23,16 @@ func TestDBMiddleware(t *testing.T) {
 
 	//仮想のリクエストハンドラを生成
 	testHandler := http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
-		if _, err := context.GetDB(r.Context(), "default"); err !=nil {
+		if _, err := context.GetDB(r.Context()); err !=nil {
 			t.Fatalf("Must exists default db connection in Context. %s", err.Error())			
 		}
 
-		if _, err := context.GetDB(r.Context(), "read"); err !=nil {
+		if _, err := context.GetDB(r.Context()); err !=nil {
 			t.Fatalf("Must exists read db connection in Context. %s", err.Error())
 		}
 	})
 
-	dmHandler := dbMiddleware(testHandler, appCfg, dataSourceNames)
+	dmHandler := dbMiddleware(testHandler, dataSourceNames)
 	recorder := httptest.NewRecorder()
 	handler := http.HandlerFunc(dmHandler)
 	handler.ServeHTTP(recorder, request)
