@@ -7,16 +7,16 @@ import (
 )
 
 // CtxKeySession コンテキスト内にSessionを管理するKey
-const CtxKeySession = contextKey("SESSION")
+const ctxKeySession = contextKey("SESSION")
 
 // SetSessionStore sets sesion store to context.
 func SetSessionStore(ctx context.Context, store *core.Store) context.Context {
-	return context.WithValue(ctx, CtxKeySession, store)
+	return context.WithValue(ctx, ctxKeySession, store)
 }
 
 // GetSessionStore sets sesion store from context.
 func GetSessionStore(ctx context.Context) (*core.Store, error) {
-	sess, ok := ctx.Value(CtxKeySession).(*core.Store)
+	sess, ok := ctx.Value(ctxKeySession).(*core.Store)
 	if ok {
 		return sess, nil
 	}

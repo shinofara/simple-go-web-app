@@ -17,7 +17,7 @@ func NewUserService() *UserService {
 
 // Register ユーザ登録手続きを行う
 func (us *UserService) Register(ctx context.Context, user *entity.User) (*entity.User, error) {
-	db := context.MustGetDB(ctx, "default")
+	db := context.MustGetDB(ctx)
 	logger := context.MustGetLogger(ctx)
 
 	err := db.CreateTablesIfNotExists()

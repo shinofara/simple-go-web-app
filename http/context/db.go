@@ -6,14 +6,16 @@ import (
 	"context"
 )
 
+const ctxKeyDB = contextKey("DB")
+
 // SetDB sets db connection to context.
-func SetDB(ctx context.Context, name string, db *gorp.DbMap) context.Context {
-	return context.WithValue(ctx, generateDBContextKey(name), db)
+func SetDB(ctx context.Context, db *gorp.DbMap) context.Context {
+	return context.WithValue(ctx, ctxKeyDB, db)
 }
 
 // GetDB gets db connection from context.
-func GetDB(ctx context.Context, name string) (*gorp.DbMap, error) {
-	db, ok := ctx.Value(generateDBContextKey(name)).(*gorp.DbMap)
+func GetDB(ctx context.Context) (*gorp.DbMap, error) {
+	db, ok := ctx.Value(ctxKeyDB).(*gorp.DbMap)
 	if ok {
 		return db, nil
 	}
@@ -21,14 +23,9 @@ func GetDB(ctx context.Context, name string) (*gorp.DbMap, error) {
 	return nil, fmt.Errorf("Failed to get DB from context")
 }
 
-// generateDBContextKey db接続情報をcontextに格納する際のkeyを生成
-func generateDBContextKey(name string) contextKey {
-	return contextKey(fmt.Sprintf("DB_%s", name))
-}
-
 // MustGetDB 確実にDBコネクションを取得
-func MustGetDB(ctx context.Context, name string) *gorp.DbMap {
-	db, err := GetDB(ctx, name)
+func MustGetDB(ctx context.Context) *gorp.DbMap {
+	db, err := GetDB(ctx)
 	if err != nil {
 		panic(err)
 	}
