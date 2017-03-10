@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
-	"net/http"
+	"net"
+	"net/http/fcgi"
 	"github.com/pressly/chi"
 	"github.com/shinofara/simple-go-web-app/config"
 	"github.com/shinofara/simple-go-web-app/controller"
@@ -49,9 +49,10 @@ func main() {
 	r.Get("/", controller.Example)
 	r.Get("/panic", controller.Panic)	
 
-	log.Fatal(http.ListenAndServeTLS(
-		fmt.Sprintf(":%s", cfg.HTTPPort),
-		cfg.CertFilePath,
-		cfg.KeyFilePath,
-		r))
+	listen, err := net.Listen("tcp", ":9000")
+	if err != nil {
+		panic(err)
+	}
+
+	log.Fatal(fcgi.Serve(listen, r))
 }
