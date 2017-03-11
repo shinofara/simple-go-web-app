@@ -27,10 +27,10 @@ dependencies:
 
   override:
     - echo $GOPATH
-    - ln -s ${HOME}/${CIRCLE_PROJECT_REPONAME} ${HOME}/.go_workspace/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-    - ls -la ${HOME}/${CIRCLE_PROJECT_REPONAME}
-    - cd ${HOME}/.go_workspace/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCL_PROJECT_REPONAME/ && ls -la
-    - cd ${HOME}/.go_workspace/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCL_PROJECT_REPONAME}/  && dep ensure
+    - ln -s ${HOME}/${CIRCLE_PROJECT_REPONAME} /usr/local/go_workspace/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+    - ls -la /usr/local/go_workspace/${CIRCLE_PROJECT_REPONAME}
+    - cd /usr/local/go_workspace/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCL_PROJECT_REPONAME/ && ls -la
+    - cd /usr/local/go_workspace/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCL_PROJECT_REPONAME}/  && dep ensure
     - mkdir -p $CIRCLE_TEST_REPORTS/golang
 
 test:
