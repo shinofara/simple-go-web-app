@@ -2,7 +2,7 @@ machine:
   environment:
     PATH: "/home/ubuntu/go/bin:$PATH"
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
-    GOVERSION: 1.7.4
+    GOVERSION: 1.8
     GOROOT: "/home/ubuntu/go"
     WORK_DIR: "/home/ubuntu/.go_project"
     GOPATH: "$GOPATH:/home/ubuntu/.go_project"
@@ -29,7 +29,6 @@ dependencies:
     - go version
 
   override:
-    - which golint
     - mkdir -p ~/.go_project/src/github.com/${CIRCLE_PROJECT_USERNAME};
       mv ${HOME}/${CIRCLE_PROJECT_REPONAME} ${HOME}/.go_project/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME};
       cd ${HOME}/.go_project/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME};
@@ -42,3 +41,4 @@ test:
     - make ci-test
     - make ci-vet
     - make ci-lint
+    - make ci-test-build
