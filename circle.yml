@@ -18,9 +18,9 @@ dependencies:
         go get -u github.com/golang/lint/golint;
         echo "go get -u github.com/golang/dep/...";
         echo "issue https://github.com/golang/dep/pull/247 がクローズするまでの暫定対応";
-        mkdir -p ~/.go_workspace/src/github.com/golang;
-        git clone -b resolve-symlinks git@github.com:brianstarke/dep.git ~/.go_workspace/src/github.com/golang/dep;
-        cd ~/.go_workspace/src/github.com/golang/dep/cmd/dep && go build && mv dep /home/ubuntu/.go/$GOVERSION/bin/;
+        mkdir -p ~/.go_project/src/github.com/golang;
+        git clone -b resolve-symlinks git@github.com:brianstarke/dep.git ~/.go_project/src/github.com/golang/dep;
+        cd ~/.go_project/src/github.com/golang/dep/cmd/dep && go build && mv dep /home/ubuntu/.go/$GOVERSION/bin/;
         mkdir -p ~/.go;
         cp -rp ~/go ~/.go/$GOVERSION;
       else
