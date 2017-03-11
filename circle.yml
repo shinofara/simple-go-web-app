@@ -26,6 +26,7 @@ dependencies:
     - go version
 
   override:
+    - echo $GOPATH
     - ln -s ${HOME}/${CIRCLE_PROJECT_REPONAME} ${HOME}/.go_workspace/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
     - ls -la ${HOME}/${CIRCLE_PROJECT_REPONAME}
     - cd ${HOME}/.go_workspace/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCL_PROJECT_REPONAME/ && ls -la
