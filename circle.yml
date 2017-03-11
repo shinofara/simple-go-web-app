@@ -30,7 +30,7 @@ dependencies:
     - echo $GOPATH
     - mkdir -p $GOPATH/src/github.com/${CIRCLE_PROJECT_USERNAME}
     - ln -s ${HOME}/${CIRCLE_PROJECT_REPONAME} $GOPATH/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-    - ls -la $GOPATH/${CIRCLE_PROJECT_REPONAME}
+    - ls -la $GOPATH/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
     - cd $GOPATH/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCL_PROJECT_REPONAME/ && ls -la
     - cd $GOPATH/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCL_PROJECT_REPONAME}/  && dep ensure
     - mkdir -p $CIRCLE_TEST_REPORTS/golang
