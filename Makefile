@@ -35,3 +35,6 @@ ci-lint:
 	for pkg in $$(go list ./... | grep -v /vendor/) ; do \
 		golint $$pkg ; \
 	done
+
+ci-test-build:
+	go build cmd/example_app/main.go
