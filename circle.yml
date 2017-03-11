@@ -5,7 +5,6 @@ machine:
     GOVERSION: 1.7.4
     GOROOT: "/home/ubuntu/go"
     WORK_DIR: "/home/ubuntu/.go_workspace"
-    GOPATH: "/home/ubuntu/.go_workspace"
 
 dependencies:
   cache_directories:
@@ -27,7 +26,7 @@ dependencies:
   override:
     - mkdir -p "$WORK_DIR/src/github.com/$CIRCLE_PROJECT_USERNAME"
     - ln -sfn $HOME/$CIRCLE_PROJECT_REPONAME $WORK_DIR/src/$IMPORT_PATH
-    - dep ensure
+    - cd $WORK_DIR/src/github.com/$CIRCLE_PROJECT_USERNAME && dep ensure
     - mkdir -p $CIRCLE_TEST_REPORTS/golang
 
 test:
