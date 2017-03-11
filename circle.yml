@@ -4,7 +4,7 @@ machine:
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
     GOVERSION: 1.7.4
     GOROOT: "/home/ubuntu/go"
-    WORK_DIR: "/home/ubuntu/.go_workspace"
+    WORK_DIR: "/home/ubuntu/.go_project"
     GOPATH: "$GOPATH:/home/ubuntu/.go_project"
 
 dependencies:
