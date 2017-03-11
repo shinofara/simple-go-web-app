@@ -29,7 +29,7 @@ dependencies:
     - go version
 
   override:
-    - echo $PATH
+    - which golint
     - mkdir -p ~/.go_project/src/github.com/${CIRCLE_PROJECT_USERNAME}
     - mv ${HOME}/${CIRCLE_PROJECT_REPONAME} ${HOME}/.go_project/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
     - cd ${HOME}/.go_project/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} && dep ensure
