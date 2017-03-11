@@ -15,7 +15,6 @@ dependencies:
         curl https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz | tar -xz;
         go get -u github.com/jstemmer/go-junit-report;
         go get -u github.com/golang/dep/...;
-        go get -u github.com/Masterminds/glide;
         go get -u github.com/golang/lint/golint;
         mkdir -p ~/.go;
         cp -rp ~/go ~/.go/$GOVERSION;
@@ -27,7 +26,7 @@ dependencies:
   override:
     - mkdir -p "$WORK_DIR/src/github.com/$CIRCLE_PROJECT_USERNAME"
     - ln -sfn $HOME/$CIRCLE_PROJECT_REPONAME $WORK_DIR/src/$IMPORT_PATH
-    - cd "$WORK_DIR/src/$IMPORT_PATH/" && glide update
+    - cd "$WORK_DIR/src/$IMPORT_PATH/" && dev ensure
 
 test:
   override:
