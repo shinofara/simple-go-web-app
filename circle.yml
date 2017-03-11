@@ -16,8 +16,8 @@ dependencies:
         go get -u github.com/jstemmer/go-junit-report;
         go get -u github.com/golang/lint/golint;
         mkdir -p ~/.go_workspace/src/github.com/golang;
-        git clone git@github.com:brianstarke/dep.git ~/.go_workspace/src/github.com/golang/dep;
-        cd ~/.go_workspace/src/github.com/golang/dep && git checkout resolve-symlinks && go install;
+        git clone -b resolve-symlinks git@github.com:brianstarke/dep.git ~/.go_workspace/src/github.com/golang/dep;
+        cd ~/.go_workspace/src/github.com/golang/dep && go install;
         mkdir -p ~/.go;
         cp -rp ~/go ~/.go/$GOVERSION;
       else
