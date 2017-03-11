@@ -5,7 +5,7 @@ machine:
     GOVERSION: 1.7.4
     GOROOT: "/home/ubuntu/go"
     WORK_DIR: "/home/ubuntu/.go_workspace"
-    GOPATH: "/home/ubuntu/.go_project"
+    GOPATH: "$GOPATH:/home/ubuntu/.go_project"
 
 dependencies:
   cache_directories:
