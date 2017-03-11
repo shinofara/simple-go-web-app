@@ -16,6 +16,9 @@ dependencies:
         curl https://storage.googleapis.com/golang/go$GOVERSION.linux-amd64.tar.gz | tar -xz;
         go get -u github.com/jstemmer/go-junit-report;
         go get -u github.com/golang/lint/golint;
+
+        # go get -u github.com/golang/dep/...
+        # issue: https://github.com/golang/dep/pull/247 がクローズするまでの暫定対応
         mkdir -p ~/.go_workspace/src/github.com/golang;
         git clone -b resolve-symlinks git@github.com:brianstarke/dep.git ~/.go_workspace/src/github.com/golang/dep;
         cd ~/.go_workspace/src/github.com/golang/dep && go install;
