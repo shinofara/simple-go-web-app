@@ -25,6 +25,7 @@ dependencies:
 
   override:
     - echo $GOPATH
+    - ls -la cd $WORK_DIR/src/$IMPORT_PATH
     - mkdir -p "$WORK_DIR/src/github.com/$CIRCLE_PROJECT_USERNAME"
     - ln -sfn $HOME/$CIRCLE_PROJECT_REPONAME $WORK_DIR/src/$IMPORT_PATH
     - cd $WORK_DIR/src/$IMPORT_PATH && dep ensure
