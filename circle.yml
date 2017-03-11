@@ -5,6 +5,7 @@ machine:
     GOVERSION: 1.7.4
     GOROOT: "/home/ubuntu/go"
     WORK_DIR: "/home/ubuntu/.go_workspace"
+    GOPATH: "/home/ubuntu/gopath"
 
 dependencies:
   cache_directories:
@@ -27,11 +28,11 @@ dependencies:
 
   override:
     - echo $GOPATH
-    - mkdir -p /usr/local/go_workspace/src/github.com/${CIRCLE_PROJECT_USERNAME}
-    - ln -s ${HOME}/${CIRCLE_PROJECT_REPONAME} /usr/local/go_workspace/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-    - ls -la /usr/local/go_workspace/${CIRCLE_PROJECT_REPONAME}
-    - cd /usr/local/go_workspace/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCL_PROJECT_REPONAME/ && ls -la
-    - cd /usr/local/go_workspace/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCL_PROJECT_REPONAME}/  && dep ensure
+    - mkdir -p $GOPATH/src/github.com/${CIRCLE_PROJECT_USERNAME}
+    - ln -s ${HOME}/${CIRCLE_PROJECT_REPONAME} $GOPATH/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+    - ls -la $GOPATH/${CIRCLE_PROJECT_REPONAME}
+    - cd $GOPATH/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCL_PROJECT_REPONAME/ && ls -la
+    - cd $GOPATH/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCL_PROJECT_REPONAME}/  && dep ensure
     - mkdir -p $CIRCLE_TEST_REPORTS/golang
 
 test:
